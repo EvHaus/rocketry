@@ -20,6 +20,9 @@
   },
   "homepage": "https://github.com/GlobexDesignsInc/deploy#readme",
   "devDependencies": {},
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
