@@ -70,7 +70,7 @@ class Deploy {
 	// Connect to deployment server
 	connectToServer (password) {
 		return new Promise((resolve, reject) => {
-			const {private_key_path} = this.options;
+			const {host, private_key_path, user} = this.options;
 
 			let privateKey;
 			try {
@@ -83,14 +83,14 @@ class Deploy {
 			}
 
 			const c = new Client();
-			this.spinner.text = `Connecting to ${chalk.yellow(HOST)}...`;
+			this.spinner.text = `Connecting to ${chalk.yellow(host)}...`;
 
 			c.on('ready', () => {
-				this.spinner.text = `Connected to ${chalk.yellow(HOST)}!`;
+				this.spinner.text = `Connected to ${chalk.yellow(host)}!`;
 				resolve(c);
 			}).connect({
-				host: this.options.host,
-				username: this.options.USER,
+				host: host,
+				username: user,
 				privateKey,
 				passphrase: this.sshPassword,
 			});
