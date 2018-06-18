@@ -180,7 +180,7 @@ class Deploy {
 
 			this.server.exec(
 				`cd ${target_dir} && ` +
-				`yarn --pure-lockfile && ` +
+				`yarn install --pure-lockfile && ` +
 				// Start with: `pm2 start npm --name "yarn" -- start`
 				`pm2 restart yarn`,
 				(err, stream) => {
