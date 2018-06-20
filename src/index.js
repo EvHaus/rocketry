@@ -139,7 +139,7 @@ class Deploy {
 			});
 
 			(this.options.directories || []).forEach((dir) => {
-				archive.file(dir);
+				archive.directory(dir);
 			});
 
 			archive.finalize();
