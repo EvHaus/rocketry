@@ -10,6 +10,8 @@ const inquirer = require('inquirer');
 const Client = require('ssh2').Client;
 
 class Deploy {
+	// directories: ['src', 'static'],
+	// files: ['package.json'],
 	// host: '138.68.241.10'
 	// user: 'root'
 	// target_dir: '/var/www'
@@ -131,10 +133,15 @@ class Deploy {
 
 			archive.on('error', reject);
 			archive.pipe(output);
-			archive.file('package.json');
-			archive.file('server.js');
-			archive.file('yarn.lock');
-			archive.directory('.next');
+
+			(this.options.files || []).forEach((file) => {
+				archive.file(file);
+			});
+
+			(this.options.directories || []).forEach((dir) => {
+				archive.file(dir);
+			});
+
 			archive.finalize();
 		});
 	}
