@@ -34,6 +34,7 @@ class Deploy {
 			})
 			.then(() => this.zipUpCurrentDirectory())
 			.then((zipPackage) => this.uploadToServer(zipPackage.path))
+			.then(() => this.installDependencies())
 			.then(() => this.restartServer())
 			.then(() => {
 				this.spinner.succeed(`Deployment completed successfully!`);
@@ -179,15 +180,48 @@ class Deploy {
 		});
 	}
 
-	// Restart the webserver
-	restartServer () {
+	// Install dependencies
+	installDependencies () {
 		return new Promise((resolve, reject) => {
-			this.spinner.text = `Installing & restarting web server...`;
+			this.spinner.text = 'Installing dependencies...';
 			const {target_dir} = this.options;
 
 			this.server.exec(
 				`cd ${target_dir} && ` +
-				`yarn install --pure-lockfile && ` +
+				`yarn install --pure-lockfile`,
+				(err, stream) => {
+					if (err) throw err;
+					stream.on('close', (code, signal) => {
+						if (code !== 127) {
+							this.spinner.text = `Dependencies installed!`;
+							resolve();
+						}
+					}).on('data', (data) => {
+						// Turn this on to see live output of the stream
+						// as the commands are being executed.
+						// console.log('STDOUT: ' + data);
+					}).stderr.on('data', (data) => {
+						// TODO: A Buffer is returned when the command is done.
+						// This seems to happen if `yarn` has any warnings during
+						// instead. It thinks it's an error, but it's really ok.
+						if (data instanceof Buffer) {
+							// console.log('buffer', data.toString());
+							return resolve();
+						}
+						reject(data);
+					});
+				});
+		});
+	}
+
+	// Restart the webserver
+	restartServer () {
+		return new Promise((resolve, reject) => {
+			this.spinner.text = `Restarting web server...`;
+			const {target_dir} = this.options;
+
+			this.server.exec(
+				`cd ${target_dir} && ` +
 				// Start with: `pm2 start npm --name "yarn" -- start`
 				`pm2 restart yarn`,
 				(err, stream) => {
@@ -198,11 +232,16 @@ class Deploy {
 							resolve();
 						}
 					}).on('data', (data) => {
+						// Turn this on to see live output of the stream
+						// as the commands are being executed.
 						// console.log('STDOUT: ' + data);
 					}).stderr.on('data', (data) => {
 						// TODO: A Buffer is returned when the upload was done
 						// succesfully. Find out why.
-						if (data instanceof Buffer) return resolve();
+						if (data instanceof Buffer) {
+							// console.log('buffer', data.toString());
+							return resolve();
+						}
 						reject(data);
 					});
 				});
