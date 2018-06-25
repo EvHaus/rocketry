@@ -188,7 +188,7 @@ class Deploy {
 
 			this.server.exec(
 				`cd ${target_dir} && ` +
-				`yarn install --pure-lockfile`,
+				`yarn install --pure-lockfile --ignore-optional`,
 				(err, stream) => {
 					if (err) throw err;
 					stream.on('close', (code, signal) => {
