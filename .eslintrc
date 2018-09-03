@@ -1,0 +1,10 @@
+{
+    "extends": "eslint-config-cumul8",
+    "rules": {
+        "flowtype/require-parameter-type": "off",
+        "flowtype/require-return-type": "off",
+        "flowtype/require-valid-file-annotation": "off",
+        "import/no-commonjs": "off",
+        "promise/no-native": "off"
+    }
+}

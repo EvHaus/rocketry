@@ -1,6 +1,3 @@
-/* eslint-disable no-console, import/no-commonjs */
-/* eslint-disable flowtype/require-valid-file-annotation, flowtype/require-return-type, flowtype/require-parameter-type */
-
 const archiver = require('archiver');
 const chalk = require('chalk');
 const fs = require('fs');
@@ -92,7 +89,7 @@ class Deploy {
 				this.spinner.text = `Connected to ${chalk.yellow(host)}!`;
 				resolve(c);
 			}).connect({
-				host: host,
+				host,
 				username: user,
 				privateKey,
 				passphrase: this.sshPassword,
@@ -208,7 +205,8 @@ class Deploy {
 							// console.log('buffer', data.toString());
 							return resolve();
 						}
-						reject(data);
+
+						return reject(data);
 					});
 				});
 		});
@@ -235,6 +233,7 @@ class Deploy {
 						// Turn this on to see live output of the stream
 						// as the commands are being executed.
 						// console.log('STDOUT: ' + data);
+						return null;
 					}).stderr.on('data', (data) => {
 						// TODO: A Buffer is returned when the upload was done
 						// succesfully. Find out why.
@@ -242,7 +241,8 @@ class Deploy {
 							// console.log('buffer', data.toString());
 							return resolve();
 						}
-						reject(data);
+
+						return reject(data);
 					});
 				});
 		});

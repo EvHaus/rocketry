@@ -14,7 +14,8 @@
 	"version": "0.3.0",
 	"main": "src/index.js",
 	"scripts": {
-		"lint": "yarn packagelint",
+		"eslint": "eslint-cumul8 src",
+		"lint": "yarn packagelint && yarn eslint",
 		"packagelint": "prettier-package-json --use-tabs --write ./package.json",
 		"test": "yarn lint"
 	},
@@ -26,6 +27,7 @@
 		"ssh2": "^0.6.1"
 	},
 	"devDependencies": {
+		"eslint-config-cumul8": "^8.0.0",
 		"prettier-package-json": "^2.0.0"
 	},
 	"publishConfig": {
