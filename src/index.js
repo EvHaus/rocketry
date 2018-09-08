@@ -5,21 +5,16 @@ const cosmiconfig = require('cosmiconfig');
 const joi = require('joi');
 const program = require('commander');
 const pkg = require('../package.json');
+const Run = require('./run');
 
-// Define CLI commands
+// Define global CLI options
 program
 	.version(pkg.version)
-	.option('-d, --debug', 'Show verbose debug messages')
+	.option('-v, --verbose', 'Show verbose debug messages')
 	.parse(process.argv);
 
 // Define config schema
 const configSchema = joi.object().keys({
-	directories: joi.array()
-		.items(joi.string())
-		.error(new Error(`The 'directories' configuration value must be an array of file paths and cannot be empty`)),
-	files: joi.array()
-		.items(joi.string())
-		.error(new Error(`The 'files' configuration value must be an array of file paths and cannot be empty`)),
 	host: joi.string()
 		.ip()
 		.required()
@@ -27,13 +22,16 @@ const configSchema = joi.object().keys({
 	private_key_path: joi.string()
 		.required()
 		.error(new Error(`The 'private_key_path' configuration value must be a string and cannot be empty`)),
+	sources: joi.array()
+		.items(joi.string())
+		.error(new Error(`The 'sources' configuration value must be an array of file paths and cannot be empty`)),
 	target_dir: joi.string()
 		.required()
 		.error(new Error(`The 'target_dir' configuration value must be a string and cannot be empty`)),
 	user: joi.string()
 		.required()
 		.error(new Error(`The 'user' configuration value must be a string and cannot be empty`)),
-}).or(['directories', 'files']);
+});
 
 const explorer = cosmiconfig('deploy');
 
@@ -47,15 +45,29 @@ explorer.search()
 
 		// Validate configuration
 		const result = joi.validate(config, configSchema);
+		if (result.error) return console.error(chalk.red(
+			result.error.message
+		));
 
-		if (result.error) {
-			return console.error(chalk.red(result.error.message));
+		program
+			.command('run')
+			.description('Perform a production deployment')
+			.action(() => new Run(config, program));
+
+		// Warn about commands we don't support
+		program
+			.command('*')
+			.action((cmd) => {
+				console.error(chalk.red(`'${cmd}' is not a valid command.`));
+			});
+
+		// Warn about missing commands
+		if (!program.args.length) {
+			console.error(chalk.red(`No commands specified. Try 'deploy run' instead.`));
 		}
 
-		return console.log('READY TO DO STUFF');
+		return program.parse(process.argv);
 	})
-	.catch((error) => {
-		console.error(chalk.red(
-			'Unable to find configuration file. Did you create a .deployrc?'
-		));
-	});
+	.catch((error) => console.error(chalk.red(
+		`Unexpected error occured: ${error.message}`
+	)));

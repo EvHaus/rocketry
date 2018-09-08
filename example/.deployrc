@@ -1,8 +1,7 @@
 {
-	directories: ['.next', 'static'],
-	files: ['package.json', 'server.js', 'yarn.lock'],
 	host: '138.68.241.10',
 	private_key_path: '/home/globex/.ssh/id_rsa',
+	sources: ['directory', 'file.js'],
 	target_dir: '/var/www',
 	user: 'root',
 }
