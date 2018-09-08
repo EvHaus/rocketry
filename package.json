@@ -8,6 +8,9 @@
 		"type": "git",
 		"url": "git+https://github.com/GlobexDesignsInc/deploy.git"
 	},
+	"bin": {
+		"deploy": "./src/index.js"
+	},
 	"bugs": {
 		"url": "https://github.com/GlobexDesignsInc/deploy/issues"
 	},
@@ -22,7 +25,10 @@
 	"dependencies": {
 		"archiver": "^3.0.0",
 		"chalk": "^2.4.1",
+		"commander": "^2.18.0",
+		"cosmiconfig": "^5.0.6",
 		"inquirer": "^6.2.0",
+		"joi": "^13.6.0",
 		"ora": "^3.0.0",
 		"ssh2": "^0.6.1"
 	},
