@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
-const chalk = require('chalk');
-const cosmiconfig = require('cosmiconfig');
-const joi = require('joi');
-const program = require('commander');
-const pkg = require('../package.json');
-const Run = require('./run');
+import chalk from 'chalk';
+import {ConfigType} from './types/config';
+import cosmiconfig from 'cosmiconfig';
+import joi from 'joi';
+import program from 'commander';
+import pkg from '../package.json';
+import Run from './run';
 
 // Define global CLI options
 program
@@ -38,7 +39,15 @@ const explorer = cosmiconfig('deploy');
 // Search for a configuration by walking up directories.
 // See documentation for search, below.
 explorer.search()
-	.then(({config, filepath, isEmpty}) => {
+	.then(({
+		config,
+		filepath,
+		isEmpty
+	}: {
+		config: ConfigType,
+		filepath: string,
+		isEmpty: boolean
+	}): any => {
 		if (isEmpty) return console.error(chalk.red(
 			`Configuration file ${filepath} is empty. Can't proceed.`
 		));

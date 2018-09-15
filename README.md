@@ -23,3 +23,10 @@ The goals for this project are to automate the following aspects of deployment:
 	- [ ] Zip and upload local project to target server
 	- [ ] Install/upgrade `node` dependencies on target server
 	- [ ] Start/restart of services on target server
+
+## Example
+
+```bash
+cd example
+npx ts-node ../src/index
+```
