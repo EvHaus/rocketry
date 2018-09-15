@@ -18,6 +18,10 @@ class Run {
 		this.askForPassword()
 			.then(() => this.connectToServer())
 			.then(() => this.getSources())
+			.then(() => {
+				// Quit after we're done
+				return process.exit(0);
+			})
 			.catch((err) => {
 				console.error(chalk.red(err.message));
 				if (this.server) this.server.end();
@@ -37,16 +41,6 @@ class Run {
 		}]).then((result) => {
 			this.sshPassword = result.password;
 			return this.sshPassword;
-		}).catch((err) => {
-			console.log(err);
-
-			// ssh2 reports wrong password as "InvalidAsn1Error", with no
-			// way to catch it in `connectToServer`
-			if (err && err.name === 'InvalidAsn1Error') {
-				throw new Error(`Wrong password. Try again.`);
-			}
-
-			throw err;
 		});
 	}
 
@@ -54,9 +48,7 @@ class Run {
 	connectToServer () {
 		const {host, private_key_path, user} = this.config;
 
-		const spinner = this.program.verbose ?
-			ora(`Connecting to ${chalk.yellow(host)}...`) :
-			null;
+		const spinner = ora(`Connecting to ${chalk.yellow(host)}...`);
 
 		return new Promise((resolve, reject) => {
 			let privateKey;
@@ -79,14 +71,21 @@ class Run {
 				privateKey,
 				passphrase: this.sshPassword,
 			});
+		}).catch((err) => {
+			// ssh2 reports wrong password as "InvalidAsn1Error"
+			if (err && err.name === 'InvalidAsn1Error') {
+				throw new Error(
+					`Wrong SSH private key password. Cannot connect to server.`
+				);
+			}
+
+			throw err;
 		});
 	}
 
 	// Finds a list of directories and files that will be uploaded
 	getSources () {
-		const spinner = this.program.verbose ?
-			ora('Compiling a list of source files...') :
-			null;
+		const spinner = ora('Compiling a list of source files...');
 
 		return Promise.all(
 			this.config.sources.map((sourceGlob) => {
@@ -104,12 +103,15 @@ class Run {
 			const sources = responses.reduce((items, result) => (
 				result.concat(items)
 			), []);
-
 			spinner.succeed(`Found ${sources.length} source items.`);
-
+			this.debug(
+				`The following sources will be uploaded:\n` +
+				`${sources.join('\n')}`
+			);
 			return sources;
 		}).catch((err) => {
 			spinner.fail(`Source scan failed: ${err.message}`);
+			throw err;
 		});
 	}
 }
