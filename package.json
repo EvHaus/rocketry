@@ -8,21 +8,20 @@
 		"type": "git",
 		"url": "git+https://github.com/GlobexDesignsInc/deploy.git"
 	},
-	"bin": {
-		"deploy": "./src/index.js"
-	},
 	"bugs": {
 		"url": "https://github.com/GlobexDesignsInc/deploy/issues"
 	},
 	"version": "0.3.0",
 	"main": "src/index.js",
+	"bin": {
+		"deploy": "./src/index.js"
+	},
 	"scripts": {
 		"build-ts": "tsc",
 		"eslint": "eslint-cumul8 src",
-		"lint": "yarn packagelint && yarn eslint && yarn tslint",
+		"lint": "yarn packagelint && yarn eslint",
 		"packagelint": "prettier-package-json --use-tabs --write ./package.json",
-		"test": "yarn lint",
-		"tslint": "tslint -c tslint.json -p tsconfig.json"
+		"test": "yarn lint"
 	},
 	"dependencies": {
 		"archiver": "^3.0.0",
@@ -38,7 +37,6 @@
 	"devDependencies": {
 		"@types/archiver": "^2.1.2",
 		"@types/chalk": "^2.2.0",
-		"@types/commander": "^2.12.2",
 		"@types/cosmiconfig": "^5.0.3",
 		"@types/glob": "^5.0.35",
 		"@types/inquirer": "^0.0.43",
@@ -49,7 +47,6 @@
 		"eslint-config-cumul8": "^8.0.0",
 		"prettier-package-json": "^2.0.0",
 		"ts-node": "^7.0.1",
-		"tslint": "^5.11.0",
 		"typescript": "^3.0.3"
 	},
 	"publishConfig": {
