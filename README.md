@@ -28,5 +28,5 @@ The goals for this project are to automate the following aspects of deployment:
 
 ```sh
 cd example
-npx ts-node ../src/index run
+npx ts-node ../src/index run -v
 ```
