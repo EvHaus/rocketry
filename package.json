@@ -14,41 +14,51 @@
 	"version": "0.3.0",
 	"main": "src/index.js",
 	"bin": {
-		"deploy": "./src/index.js"
+		"deploy": "./bin/index.js"
 	},
 	"scripts": {
-		"build-ts": "tsc",
+		"build": "babel src -d bin",
 		"eslint": "eslint-cumul8 src",
+		"flow": "flow",
+		"flow-typed:update": "rm -rf flow-typed && flow-typed install --ignoreDeps dev",
 		"lint": "yarn packagelint && yarn eslint",
 		"packagelint": "prettier-package-json --use-tabs --write ./package.json",
-		"test": "yarn lint"
+		"start": "babel-node ./src run -D example -v",
+		"test": "yarn flow && yarn lint"
 	},
 	"dependencies": {
+		"@hapi/joi": "^15.0.2",
 		"archiver": "^3.0.0",
-		"chalk": "^2.4.1",
-		"commander": "^2.18.0",
-		"cosmiconfig": "^5.0.6",
-		"glob": "^7.1.3",
-		"inquirer": "^6.2.0",
-		"joi": "^13.6.0",
-		"ora": "^3.0.0",
-		"ssh2": "^0.6.1"
+		"chalk": "^2.4.2",
+		"commander": "^2.20.0",
+		"cosmiconfig": "^5.2.0",
+		"glob": "^7.1.4",
+		"inquirer": "^6.3.1",
+		"ora": "^3.4.0",
+		"ssh2": "^0.8.4"
 	},
 	"devDependencies": {
-		"@types/archiver": "^2.1.2",
-		"@types/chalk": "^2.2.0",
-		"@types/cosmiconfig": "^5.0.3",
-		"@types/glob": "^7.1.0",
-		"@types/inquirer": "^0.0.43",
-		"@types/joi": "^13.4.5",
-		"@types/node": "^10.10.1",
-		"@types/ora": "^1.3.4",
-		"@types/ssh2": "^0.5.35",
-		"eslint-config-cumul8": "^8.0.0",
-		"prettier-package-json": "^2.0.1",
-		"ts-node": "^7.0.1",
-		"typescript": "^3.0.3"
+		"@babel/cli": "^7.4.4",
+		"@babel/core": "^7.4.4",
+		"@babel/node": "^7.2.2",
+		"@babel/plugin-proposal-class-properties": "^7.4.4",
+		"@babel/preset-env": "^7.4.4",
+		"@babel/preset-flow": "^7.0.0",
+		"eslint-config-cumul8": "^8.0.50",
+		"flow-bin": "^0.98.1",
+		"flow-typed": "^2.5.1",
+		"prettier-package-json": "^2.1.0"
 	},
+	"keywords": [
+		"automation",
+		"deploy",
+		"deployer",
+		"deployment",
+		"digitalocean",
+		"droplet",
+		"node",
+		"nodejs"
+	],
 	"publishConfig": {
 		"access": "public"
 	}

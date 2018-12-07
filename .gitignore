@@ -1,2 +1,4 @@
+bin
+example/deploy.zip
 node_modules
 yarn-error.log

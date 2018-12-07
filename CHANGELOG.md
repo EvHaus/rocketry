@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - Added documentation to README and added a CHANGELOG
+- Migrated to Flow
+- Added support for installing `node` and `yarn` on the server before deployment
 
 ## [0.2.5] - 2018-06-24
 

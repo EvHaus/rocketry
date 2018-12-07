@@ -8,25 +8,25 @@
 
 Services like [DigitalOcean](https://www.digitalocean.com/)'s droplets make it super easy to create deployment targets for websites and other Node.js projects. However, there are still a lot of manual steps developers have to do in order to get the servers setup, configured and ready to be used for production.
 
-The goal of this tool is to make all that setup a single command. You should focus on developing the features of your project, and let this tool handle the server setup and deployment automation.
+The goal of this tool is to make all those deployment steps a single command. You should focus on developing the features of your project, and let this tool handle the server setup and deployment automation.
 
 ## Goals
 
-The goals for this project are to automate the following aspects of deployment:
+These are the goals for this project:
 
 - [ ] Installation & setup of target server
-	- [ ] Install `node`, `npm` and `yarn`
+	- [x] Install `node`
+	- [x] Install `yarn`
 	- [ ] Install `pm2` or `forever`
 	- [ ] Install public SSH key
 - [ ] Automation of deployment
-	- [ ] Setup necessary directories on target server
-	- [ ] Zip and upload local project to target server
+	- [ ] Create target directories on target server
+	- [ ] Upload local project files to target server
 	- [ ] Install/upgrade `node` dependencies on target server
 	- [ ] Start/restart of services on target server
 
-## Example
+## Running the Example
 
 ```sh
-cd example
-npx ts-node ../src/index run -v
+yarn start
 ```

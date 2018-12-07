@@ -1,7 +1,10 @@
 {
 	host: '138.68.241.10',
 	private_key_path: '/home/globex/.ssh/id_rsa',
-	sources: ['directory', 'file.js'],
-	target_dir: '/var/www',
+	sources: [
+		'directory',
+		'package.json'
+	],
+	target_dir: '/var/www/example',
 	user: 'root',
 }
