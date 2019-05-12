@@ -129,6 +129,8 @@ class Deploy {
 			await installNpmDependencies(this.config, this.debug, this.program, this.server);
 			await restartServices(this.program, this.config, this.debug, this.server);
 
+			// TODO: Delete the local zip file
+
 			// Quit after we're done
 			return process.exit(0);
 		} catch (err) {
