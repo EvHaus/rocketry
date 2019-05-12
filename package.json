@@ -11,8 +11,7 @@
 	"bugs": {
 		"url": "https://github.com/GlobexDesignsInc/deploy/issues"
 	},
-	"version": "0.3.0",
-	"main": "src/index.js",
+	"version": "0.3.1",
 	"bin": {
 		"deploy": "./bin/index.js"
 	},
@@ -23,6 +22,7 @@
 		"flow-typed:update": "rm -rf flow-typed && flow-typed install --ignoreDeps dev",
 		"lint": "yarn packagelint && yarn eslint",
 		"packagelint": "prettier-package-json --use-tabs --write ./package.json",
+		"prepare": "yarn build",
 		"start": "babel-node ./src run -D example -v",
 		"test": "yarn flow && yarn lint"
 	},
