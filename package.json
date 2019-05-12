@@ -11,7 +11,7 @@
 	"bugs": {
 		"url": "https://github.com/GlobexDesignsInc/deploy/issues"
 	},
-	"version": "0.3.4",
+	"version": "0.3.5",
 	"bin": {
 		"deploy": "./bin/index.js"
 	},

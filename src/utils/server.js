@@ -71,7 +71,8 @@ export const installNode = async function (
 	if (!program.verbose) spinner.start();
 
 	const cmds = [
-		`wget -qO- ${NVM_INSTALL_URL} | bash`,
+		`wget -qO- ${NVM_INSTALL_URL}`,
+		`bash ~/.nvm/install.sh`,
 		`source ~/.nvm/nvm.sh && nvm install stable`,
 	];
 
