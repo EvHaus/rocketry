@@ -19,11 +19,11 @@ These are the goals for this project:
 	- [x] Install `yarn`
 	- [ ] Install `pm2` or `forever`
 	- [ ] Install public SSH key
-- [ ] Automation of deployment
-	- [ ] Create target directories on target server
-	- [ ] Upload local project files to target server
-	- [ ] Install/upgrade `node` dependencies on target server
-	- [ ] Start/restart of services on target server
+- [x] Automation of deployment
+	- [x] Create target directories on target server
+	- [x] Upload local project files to target server
+	- [x] Install/upgrade `node` dependencies on target server
+	- [x] Start/restart of services on target server
 
 ## Running the Example
 
