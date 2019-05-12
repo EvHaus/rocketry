@@ -43,8 +43,8 @@ export const installAptUpdates = async function (
 	const cmds = [
 		`sudo apt-get update`,
 		`sudo apt-get install -y unzip`,
-		`sudo apt-get upgrade`,
-		`sudo apt-get autoremove`,
+		`sudo apt-get upgrade -y`,
+		`sudo apt-get autoremove -y`,
 	];
 
 	try {

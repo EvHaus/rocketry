@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
+- Ensure all `apt-get upgrade` commands are also set with `-y` for auto approval
+
+----
+
+## [0.3.3] - 2019-05-12
+
+### Fixed
+
 - Ensure all `apt-get install` commands are set with `-y` for auto approval
 
 ----
