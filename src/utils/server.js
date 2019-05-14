@@ -111,8 +111,7 @@ export const installNpmDependencies = async function (
 
 	try {
 		await serverRunMultiple([
-			`cd ${target_dir}`,
-			`yarn install --pure-lockfile --ignore-optional`,
+			`cd ${target_dir} && yarn install --pure-lockfile --ignore-optional`,
 		], debug, server);
 	} catch (err) {
 		spinner.fail(
@@ -168,7 +167,6 @@ export const restartServices = async function (
 	const {target_dir} = config;
 
 	const cmds = [
-		`cd ${target_dir}`,
 		// Start with: `pm2 start npm --name "yarn" -- start`
 		`pm2 restart yarn`,
 	];
