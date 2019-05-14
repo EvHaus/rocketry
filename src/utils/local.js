@@ -11,14 +11,18 @@ import path from 'path';
 import {promisify} from 'util';
 
 // Delete the deploy file
-export const deleteZipFile = async function (): Promise<void> {
+export const deleteZipFile = async function (
+	program: Command
+): Promise<void> {
 	const deleteFile = promisify(fs.unlink);
-	const outputPath = getZipFilePath();
+	const outputPath = getZipFilePath(program);
 	return await deleteFile(outputPath);
 };
 
 // Gets the path to the deployment zip file
-export const getZipFilePath = function (): string {
+export const getZipFilePath = function (
+	program: Command
+): string {
 	const dir = path.resolve(process.cwd(), program.dir);
 	return path.join(dir, 'deploy.zip');
 };
@@ -107,7 +111,7 @@ export const zipUpCurrentDirectory = function (
 		const spinner = ora('Creating deployment archive...');
 		if (!program.verbose) spinner.start();
 
-		const outputPath = getZipFilePath();
+		const outputPath = getZipFilePath(program);
 		const output = fs.createWriteStream(outputPath);
 		const archive = archiver('zip');
 

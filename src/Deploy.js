@@ -130,7 +130,7 @@ class Deploy {
 			await installNpmDependencies(this.config, this.debug, this.program, this.server);
 			await restartServices(this.program, this.config, this.debug, this.server);
 
-			await deleteZipFile();
+			await deleteZipFile(this.program);
 
 			// Quit after we're done
 			return process.exit(0);
