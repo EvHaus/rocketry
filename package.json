@@ -11,7 +11,7 @@
 	"bugs": {
 		"url": "https://github.com/GlobexDesignsInc/deploy/issues"
 	},
-	"version": "0.3.5",
+	"version": "0.3.6",
 	"bin": {
 		"deploy": "./bin/index.js"
 	},
@@ -27,7 +27,7 @@
 		"test": "yarn flow && yarn lint"
 	},
 	"dependencies": {
-		"@hapi/joi": "^15.0.2",
+		"@hapi/joi": "^15.0.3",
 		"archiver": "^3.0.0",
 		"chalk": "^2.4.2",
 		"commander": "^2.20.0",

@@ -10,6 +10,7 @@ import {
 	uploadZipToServer,
 } from './utils/server';
 import {
+	deleteZipFile,
 	getPrivateKey,
 	getSources,
 	zipUpCurrentDirectory,
@@ -129,7 +130,7 @@ class Deploy {
 			await installNpmDependencies(this.config, this.debug, this.program, this.server);
 			await restartServices(this.program, this.config, this.debug, this.server);
 
-			// TODO: Delete the local zip file
+			await deleteZipFile();
 
 			// Quit after we're done
 			return process.exit(0);

@@ -8,6 +8,20 @@ import fs from 'fs';
 import glob from 'glob';
 import ora from 'ora';
 import path from 'path';
+import {promisify} from 'util';
+
+// Delete the deploy file
+export const deleteZipFile = async function (): Promise<void> {
+	const deleteFile = promisify(fs.unlink);
+	const outputPath = getZipFilePath();
+	return await deleteFile(outputPath);
+};
+
+// Gets the path to the deployment zip file
+export const getZipFilePath = function (): string {
+	const dir = path.resolve(process.cwd(), program.dir);
+	return path.join(dir, 'deploy.zip');
+};
 
 // Given a path to a private SSH key file, returns its value
 export const getPrivateKey = function (
@@ -93,7 +107,7 @@ export const zipUpCurrentDirectory = function (
 		const spinner = ora('Creating deployment archive...');
 		if (!program.verbose) spinner.start();
 
-		const outputPath = path.join(dir, 'deploy.zip');
+		const outputPath = getZipFilePath();
 		const output = fs.createWriteStream(outputPath);
 		const archive = archiver('zip');
 
