@@ -17,13 +17,15 @@ These are the goals for this project:
 - [ ] Installation & setup of target server
 	- [x] Install `node`
 	- [x] Install `yarn`
-	- [ ] Install `pm2` or `forever`
+	- [ ] Install `pm2`
 	- [ ] Install public SSH key
 - [x] Automation of deployment
 	- [x] Create target directories on target server
 	- [x] Upload local project files to target server
 	- [x] Install/upgrade `node` dependencies on target server
 	- [x] Start/restart of services on target server
+	- [ ] Start the application if it's the first deployment, otherwise restart it for updates
+	- [ ] Seamless deployments without downtime
 
 ## Running the Example
 
