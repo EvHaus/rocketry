@@ -27,20 +27,6 @@ export const getZipFilePath = function (
 	return path.join(dir, 'deploy.zip');
 };
 
-// Given a path to a private SSH key file, returns its value
-export const getPrivateKey = function (
-	private_key_path: string
-): string | Buffer {
-	try {
-		return fs.readFileSync(private_key_path);
-	} catch (err) {
-		throw new Error(
-			`Can't find private SSH key in ${chalk.yellow(private_key_path)}. ` +
-			`Make sure you're running this script via Bash.`
-		);
-	}
-};
-
 // Finds a list of directories and files that will be uploaded
 export const getSources = async function (
 	config: ConfigType,
@@ -94,6 +80,20 @@ export const getSources = async function (
 	} catch (err) {
 		spinner.fail(`Source scan failed: ${err.message}`);
 		throw err;
+	}
+};
+
+// Given a path to a private SSH key file, returns its value
+export const validatePrivateKeyPath = function (
+	filePath: string
+) {
+	try {
+		fs.readFileSync(filePath);
+	} catch (err) {
+		throw new Error(
+			`Can't find private SSH key in ${chalk.yellow(filePath)}. ` +
+			`Make sure you're running this script via Bash.`
+		);
 	}
 };
 

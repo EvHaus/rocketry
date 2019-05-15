@@ -1,8 +1,11 @@
 // @flow
 
-import {type CmdResponseType, type ConfigType} from '../types/config';
+import {
+	type ConfigType,
+	type ServerCommandResponseType,
+	type ServerType,
+} from '../types/config';
 import chalk from 'chalk';
-import {Client} from 'ssh2';
 import {type Command} from 'commander';
 import ora from 'ora';
 
@@ -12,7 +15,7 @@ const NVM_INSTALL_URL = 'https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/in
 export const ensureTargetDirectoryExists = async function (
 	config: ConfigType,
 	debug: (msg: string) => any,
-	server: Client
+	server: ServerType
 ): Promise<boolean> {
 	const {target_dir} = config;
 
@@ -35,7 +38,7 @@ export const ensureTargetDirectoryExists = async function (
 export const installAptUpdates = async function (
 	program: Command,
 	debug: (msg: string) => any,
-	server: Client
+	server: ServerType
 ) {
 	const spinner = ora('Installing node on target server...');
 	if (!program.verbose) spinner.start();
@@ -65,7 +68,7 @@ export const installAptUpdates = async function (
 export const installNode = async function (
 	program: Command,
 	debug: (msg: string) => any,
-	server: Client
+	server: ServerType
 ) {
 	const spinner = ora('Installing node on target server...');
 	if (!program.verbose) spinner.start();
@@ -77,7 +80,7 @@ export const installNode = async function (
 	];
 
 	try {
-		const stderr: ?string = (await serverRunMultiple(cmds, debug, server))[1];
+		const {stderr} = await serverRunMultiple(cmds, debug, server);
 
 		// For some reaosn "already installed" responses are returned as
 		// errors. We can ignore them.
@@ -102,7 +105,7 @@ export const installNpmDependencies = async function (
 	config: ConfigType,
 	debug: (msg: string) => any,
 	program: Command,
-	server: Client
+	server: ServerType
 ): Promise<boolean> {
 	const spinner = ora('Installing npm dependencies...');
 	if (!program.verbose) spinner.start();
@@ -128,7 +131,7 @@ export const installNpmDependencies = async function (
 export const installYarn = async function (
 	program: Command,
 	debug: (msg: string) => any,
-	server: Client
+	server: ServerType
 ) {
 	const spinner = ora('Installing node on target server...');
 	if (!program.verbose) spinner.start();
@@ -159,13 +162,12 @@ export const restartServices = async function (
 	program: Command,
 	config: ConfigType,
 	debug: (msg: string) => any,
-	server: Client
+	server: ServerType
 ): Promise<boolean> {
 	const spinner = ora('Restarting services...');
 	if (!program.verbose) spinner.start();
 
-	const {target_dir} = config;
-
+	// TODO: This doesn't wait for the install to finish
 	const cmds = [
 		// Start with: `pm2 start npm --name "yarn" -- start`
 		`pm2 restart yarn`,
@@ -185,133 +187,110 @@ export const restartServices = async function (
 };
 
 // Runs a single command on the target server
-export const serverRun = function (
+export const serverRun = async function (
 	cmd: string,
 	debug: (msg: string) => any,
-	server: Client
-): Promise<CmdResponseType> {
+	server: ServerType,
+	cwd?: ?string
+): Promise<ServerCommandResponseType> {
 	debug(chalk.cyan(cmd));
 
-	return new Promise((resolve: (CmdResponseType) => any) => {
-		const response: CmdResponseType = [null, null];
-		server.exec(cmd, (err: Buffer, stream: any): any => {
-			if (err) {
-				response[1] = err.toString();
-				resolve(response);
-				return;
-			}
+	// Run `pwd` after each command can save it for the next command
+	const command = `${cmd} && pwd`;
 
-			stream
-				.on('close', (stdout: string | number): any => {
-					// Empty stdout values are returned as 0
-					if (stdout !== 0) {
-						if (!response[0]) response[0] = '';
-						if (response[0]) response[0] += `\n${stdout}`;
-						resolve(response);
-					}
-
-					return resolve(response);
-				})
-				.on('data', (data: string) => {
-					if (!response[0]) response[0] = '';
-					if (response[0]) response[0] += `\n${data}`;
-					debug(data);
-				})
-				.stderr.on('data', (data: string) => {
-					debug(data);
-					response[1] = data.toString();
-					resolve(response);
-				});
-		});
+	const result = await server.execCommand(command, {
+		cwd,
+		onStdout: (chunk: Buffer) => {
+			debug(chunk.toString('utf8'));
+		},
+		onStderr: (chunk: Buffer) => {
+			debug(chalk.red(chunk.toString('utf8')));
+		},
 	});
+
+	// `pwd` output will be on the last line
+	const responseLines = result.stdout.split('\n');
+	const newCwd = responseLines[responseLines.length - 1];
+
+	return {
+		...result,
+		cwd: newCwd,
+	};
 };
 
 // Runs multiple commands on the target server
 export const serverRunMultiple = function (
 	cmds: Array<string>,
 	debug: (msg: string) => any,
-	server: Client
-): Promise<CmdResponseType> {
-	const response: CmdResponseType = [null, null];
+	server: ServerType
+): Promise<ServerCommandResponseType> {
+	let cwd;
 
 	// Chains promises serially
 	return cmds.reduce((
-		chain: Promise<CmdResponseType>,
+		chain: Promise<ServerCommandResponseType>,
 		cmd: string
-	): Promise<CmdResponseType> => {
-		return chain.then(async (): Promise<CmdResponseType> => {
+	): Promise<ServerCommandResponseType> => {
+		return chain.then(async (): Promise<ServerCommandResponseType> => {
 			const cmdResponse = await serverRun(
 				cmd,
 				debug,
-				server
+				server,
+				cwd
 			);
 
-			// Combine all the response values
-			if (cmdResponse[0] && !response[0]) {
-				response[0] = cmdResponse[0];
-			} else if (cmdResponse[0] && response[0]) {
-				response[0] += `\n${response[0]}`;
-			}
+			cwd = cmdResponse.cwd;
 
-			if (cmdResponse[1] && !response[1]) {
-				response[1] = cmdResponse[1];
-			} else if (cmdResponse[1] && response[1]) {
-				response[1] += `\n${response[1]}`;
-			}
-
-			return response;
+			return cmdResponse;
 		});
-	}, Promise.resolve([null, null]));
+	}, Promise.resolve({
+		code: -1,
+		cwd: null,
+		signal: null,
+		stderr: '',
+		stdout: '',
+	}));
 };
 
 // Uploads the given zip file to the target server
-export const uploadZipToServer = function ({
+export const uploadZipToServer = async function ({
 	config,
 	debug,
 	localZipPath,
 	program,
 	server,
-}: {
+}: {|
 	config: ConfigType,
 	debug: (msg: string) => any,
 	localZipPath: string,
 	program: Command,
-	server: Client,
-}): Promise<void> {
-	return new Promise((
-		resolve: () => void,
-		reject: (err: Error) => void
-	) => {
-		const spinner = ora(`Uploading ${chalk.yellow(localZipPath)} to server...`);
-		if (!program.verbose) spinner.start();
+	server: ServerType,
+|}) {
+	const spinner = ora(`Uploading ${chalk.yellow(localZipPath)} to server...`);
+	if (!program.verbose) spinner.start();
 
-		server.sftp((err: Error, sftp: any) => {
-			if (err) throw err;
-			const {target_dir} = config;
-			const target = `${target_dir}/deploy.zip`;
-			sftp.fastPut(localZipPath, target, async () => {
-				// Untar the package once its on the server
-				spinner.text = (
-					`Deployment package uploaded to ` +
-					`'${chalk.yellow(target)}'. Unzipping...`
-				);
+	const {target_dir} = config;
+	const target = `${target_dir}/deploy.zip`;
 
-				try {
-					await serverRunMultiple([
-						`cd ${target_dir}`,
-						`unzip -ao ${target}`,
-						`rm -f deploy.zip`,
-					], debug, server);
-				} catch (error) {
-					spinner.fail(
-						`${chalk.red('[FAILURE]')} Failed to upload ZIP package to target server.`
-					);
-					throw error;
-				}
+	await server.putFile(localZipPath, target);
 
-				spinner.succeed('Package unzipped on the target server.');
-				resolve();
-			}, (err: Error): any => reject);
-		});
-	});
+	// Unzip the package once its on the server
+	spinner.text = (
+		`Deployment package uploaded to '${chalk.yellow(target)}'. Unzipping...`
+	);
+
+	try {
+		await serverRunMultiple([
+			`cd ${target_dir}`,
+			`unzip -ao ${target}`,
+			`rm -f deploy.zip`,
+		], debug, server);
+	} catch (error) {
+		spinner.fail(
+			`${chalk.red('[FAILURE]')} Failed to upload ZIP package to target server.`
+		);
+		throw error;
+	}
+
+	spinner.succeed('Package unzipped on the target server.');
 };

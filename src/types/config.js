@@ -1,11 +1,25 @@
 // @flow
 
-export type ConfigType = {
+import nodeSSH from 'node-ssh';
+
+export type ConfigType = {|
 	host: string,
 	private_key_path: string,
 	sources: Array<string>,
 	target_dir: string,
 	user: string,
-};
+|};
 
-export type CmdResponseType = [?string, ?string];
+export type ServerCommandResponseType = {|
+	...SshCommandResponseType,
+	cwd: ?string,
+|};
+
+export type ServerType = typeof nodeSSH;
+
+export type SshCommandResponseType = {|
+	code: number,
+	signal: ?string,
+	stderr: string,
+	stdout: string,
+|};

@@ -1,5 +1,12 @@
 // @flow
 
+import {type ConfigType, type ServerType} from './types/config';
+import {
+	deleteZipFile,
+	getSources,
+	validatePrivateKeyPath,
+	zipUpCurrentDirectory,
+} from './utils/local';
 import {
 	ensureTargetDirectoryExists,
 	installAptUpdates,
@@ -9,17 +16,10 @@ import {
 	restartServices,
 	uploadZipToServer,
 } from './utils/server';
-import {
-	deleteZipFile,
-	getPrivateKey,
-	getSources,
-	zipUpCurrentDirectory,
-} from './utils/local';
 import chalk from 'chalk';
-import {Client} from 'ssh2';
 import {type Command} from 'commander';
-import {type ConfigType} from './types/config';
 import inquirer from 'inquirer';
+import nodeSSH from 'node-ssh';
 import ora from 'ora';
 
 class Deploy {
@@ -29,7 +29,7 @@ class Deploy {
 
 	program: Command;
 
-	server: ?Client;
+	server: ServerType;
 
 	constructor (config: ConfigType, program: Command) {
 		this.config = config;
@@ -49,52 +49,34 @@ class Deploy {
 	}
 
 	// Connects to the target server
-	connectToServer (): Promise<Client> {
-		const {host, user} = this.config;
+	connectToServer (): Promise<ServerType> {
+		const {host, private_key_path, user} = this.config;
 
 		const spinner = ora(`Connecting to ${chalk.yellow(host)}...`).start();
 
-		const privateKey = getPrivateKey(this.config.private_key_path);
+		validatePrivateKeyPath(private_key_path);
 
-		return new Promise((
-			resolve: (client: Client) => any,
-			reject: (err: Error) => any
-		) => {
-			const client = new Client();
-			client
-				.on('ready', (): any => resolve(client))
-				.on('error', (err: Error) => {
-					// This is error you get when connection to server fails
-					if (err && err.message === 'All configured authentication methods failed') {
-						reject(new Error(
-							`Unable to connect to remote server ${host}. ` +
-							`Error: ${err.message}.`
-						));
-					} else {
-						reject(err);
-					}
-				})
-				.connect({
-					host,
-					username: user,
-					privateKey,
-					passphrase: this._sshPassword,
-				});
-		}).then((client: Client): Client => {
+		const client = new nodeSSH();
+
+		return client.connect({
+			host,
+			username: user,
+			privateKey: private_key_path,
+			passphrase: this._sshPassword,
+		}).then((client: ServerType): ServerType => {
 			spinner.succeed(`Connected to ${chalk.yellow(host)}`);
 			return client;
-		}).catch((err: Error) => {
+		}).catch(async (err: Error): Promise<ServerType> => {
+			// This is what ssh2 returns when the password isn't right
+			if (err && err.message.includes('Cannot parse privateKey')) {
+				spinner.fail(`Wrong private SSH key password provided. Try again.`);
+				await this.askForPassword();
+				return this.connectToServer();
+			}
+
 			spinner.fail(
 				`${chalk.red('[FAILURE]')} Could not connect to remote server.`
 			);
-
-			// This is what ssh2 returns when the password isn't right
-			if (err && err.message.includes('Cannot parse privateKey')) {
-				throw new Error(
-					`Wrong private SSH key password provided.`
-				);
-			}
-
 			throw err;
 		});
 	}
@@ -139,7 +121,7 @@ class Deploy {
 			console.error(chalk.red(err.message));
 
 			// Close the server connection
-			if (this.server) this.server.end();
+			if (this.server) this.server.dispose();
 
 			return process.exit(1);
 		}
