@@ -11,12 +11,12 @@ import path from 'path';
 import {promisify} from 'util';
 
 // Delete the deploy file
-export const deleteZipFile = async function (
+export const deleteZipFile = function (
 	program: Command
 ): Promise<void> {
 	const deleteFile = promisify(fs.unlink);
 	const outputPath = getZipFilePath(program);
-	return await deleteFile(outputPath);
+	return deleteFile(outputPath);
 };
 
 // Gets the path to the deployment zip file

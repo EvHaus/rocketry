@@ -90,10 +90,14 @@ export const installNode = async function (
 			throw new Error(stderr);
 		}
 	} catch (err) {
-		spinner.fail(
-			`${chalk.red('[FAILURE]')} Failed to install node on target server.`
-		);
-		throw err;
+		// For some reason `nvm` returns a successful upgrade as an error, so
+		// we have to ignore it and not throw
+		if (!err.message.contains('Checksums matched!')) {
+			spinner.fail(
+				`${chalk.red('[FAILURE]')} Failed to install node on target server.`
+			);
+			throw err;
+		}
 	}
 
 	spinner.succeed(

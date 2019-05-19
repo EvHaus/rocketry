@@ -11,7 +11,7 @@
 	"bugs": {
 		"url": "https://github.com/GlobexDesignsInc/deploy/issues"
 	},
-	"version": "0.3.9",
+	"version": "0.3.10",
 	"bin": {
 		"deploy": "./bin/index.js"
 	},
@@ -46,7 +46,7 @@
 		"@babel/preset-flow": "^7.0.0",
 		"eslint-config-cumul8": "^8.0.50",
 		"flow-bin": "^0.98.1",
-		"flow-typed": "^2.5.1",
+		"flow-typed": "^2.5.2",
 		"prettier-package-json": "^2.1.0"
 	},
 	"keywords": [
