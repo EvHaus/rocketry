@@ -39,10 +39,10 @@
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.4.4",
-		"@babel/core": "^7.4.4",
-		"@babel/node": "^7.2.2",
+		"@babel/core": "^7.4.5",
+		"@babel/node": "^7.4.5",
 		"@babel/plugin-proposal-class-properties": "^7.4.4",
-		"@babel/preset-env": "^7.4.4",
+		"@babel/preset-env": "^7.4.5",
 		"@babel/preset-flow": "^7.0.0",
 		"eslint-config-cumul8": "^8.0.50",
 		"flow-bin": "^0.98.1",
