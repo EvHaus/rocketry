@@ -90,13 +90,20 @@ export const installNode = async function (
 			throw new Error(stderr);
 		}
 	} catch (err) {
-		// For some reason `nvm` returns a successful upgrade as an error, so
-		// we have to ignore it and not throw
-		if (!String(err.message).contains('Checksums matched!')) {
-			spinner.fail(
-				`${chalk.red('[FAILURE]')} Failed to install node on target server.`
-			);
-			throw err;
+		// Temporary try/catch to figure out why err.message.contains fails.
+		try {
+			// For some reason `nvm` returns a successful upgrade as an error, so
+			// we have to ignore it and not throw
+			if (!err.message.contains('Checksums matched!')) {
+				spinner.fail(
+					`${chalk.red('[FAILURE]')} Failed to install node on target server.`
+				);
+				throw err;
+			}
+		} catch (e) {
+			// Do nothing.
+			console.log('typeof', typeof err.message);
+			console.log('err.message', err.message);
 		}
 	}
 
