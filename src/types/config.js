@@ -4,6 +4,7 @@ import nodeSSH from 'node-ssh';
 
 export type ConfigType = {|
 	host: string,
+	name?: ?string,
 	private_key_path: string,
 	sources: Array<string>,
 	target_dir: string,

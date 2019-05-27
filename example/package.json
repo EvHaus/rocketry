@@ -3,5 +3,8 @@
 	"version": "1.0.0",
 	"dependencies": {
 		"ora": "^3.4.0"
+	},
+	"scripts": {
+		"start": "node start.js"
 	}
 }

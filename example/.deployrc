@@ -3,7 +3,8 @@
 	private_key_path: '/home/globex/.ssh/id_rsa',
 	sources: [
 		'directory',
-		'package.json'
+		'package.json',
+		'start.js'
 	],
 	target_dir: '/var/www/example',
 	user: 'root',

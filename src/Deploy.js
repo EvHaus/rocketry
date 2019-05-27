@@ -12,6 +12,7 @@ import {
 	installAptUpdates,
 	installNode,
 	installNpmDependencies,
+	installPm2,
 	installYarn,
 	restartServices,
 	uploadZipToServer,
@@ -82,7 +83,6 @@ class Deploy {
 	}
 
 	debug = (msg: string) => {
-		// eslint-disable-next-line no-console
 		if (this.program.verbose) console.debug(chalk.gray(msg));
 	};
 
@@ -97,6 +97,7 @@ class Deploy {
 			await installAptUpdates(this.program, this.debug, this.server);
 			await installNode(this.program, this.debug, this.server);
 			await installYarn(this.program, this.debug, this.server);
+			await installPm2(this.program, this.debug, this.server);
 
 			await ensureTargetDirectoryExists(this.config, this.debug, this.server);
 			const sources = await getSources(this.config, this.debug, this.program);
@@ -117,7 +118,6 @@ class Deploy {
 			// Quit after we're done
 			return process.exit(0);
 		} catch (err) {
-			// eslint-disable-next-line no-console
 			console.error(chalk.red(err.message));
 
 			// Close the server connection

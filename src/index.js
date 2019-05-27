@@ -26,6 +26,7 @@ const configSchema = joi.object().keys({
 		.ip()
 		.required()
 		.error(new Error(`The 'host' configuration value must be a valid IP and cannot be empty`)),
+	name: joi.string(),
 	private_key_path: joi.string()
 		.required()
 		.error(new Error(`The 'private_key_path' configuration value must be a string and cannot be empty`)),
@@ -54,7 +55,6 @@ explorer.search(program.dir)
 		filepath: string,
 		isEmpty: boolean,
 	}): any => {
-		// eslint-disable-next-line no-console
 		if (isEmpty) return console.error(chalk.red(
 			`Configuration file ${filepath} is empty. Can't proceed.`
 		));
@@ -62,9 +62,9 @@ explorer.search(program.dir)
 		// Validate configuration
 		const result = joi.validate(config, configSchema);
 
-		// eslint-disable-next-line no-console
 		if (result.error) return console.error(chalk.red(
-			result.error.message
+			`You have an error in your '${filepath}' configuration file:\n` +
+			`${result.error.message}.`
 		));
 
 		program
@@ -76,20 +76,17 @@ explorer.search(program.dir)
 		program
 			.command('*')
 			.action((cmd: string) => {
-				// eslint-disable-next-line no-console
 				console.error(chalk.red(`'${cmd}' is not a valid command.`));
 			});
 
 		// Warn about missing commands
 		if (!program.args.length) {
-			// eslint-disable-next-line no-console
 			console.error(chalk.red(`No commands specified. Try 'deploy run' instead.`));
 		}
 
 		return program.parse(process.argv);
 	})
 	.catch((error: Error) => {
-		// eslint-disable-next-line no-console
 		console.error(chalk.red(
 			`Unexpected error occured: ${error.message}`
 		));

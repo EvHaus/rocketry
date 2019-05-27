@@ -10,6 +10,12 @@ import ora from 'ora';
 import path from 'path';
 import {promisify} from 'util';
 
+export const cwd = function (
+	program: Command
+): string {
+	return program.dir ? path.resolve(process.cwd(), program.dir) : process.cwd();
+};
+
 // Delete the deploy file
 export const deleteZipFile = function (
 	program: Command
@@ -19,12 +25,25 @@ export const deleteZipFile = function (
 	return deleteFile(outputPath);
 };
 
+// Determines the application's name
+export const getAppName = function (
+	config: ConfigType,
+	program: Command
+): string {
+	// If the config has a name - use that
+	if (config.name) return config.name;
+
+	// Otherwise grab the name from the `package.json` of the local dir
+	const pkg = fs.readFileSync(path.join(cwd(program), 'package.json'));
+
+	return (JSON.parse(String(pkg)) || {}).name;
+};
+
 // Gets the path to the deployment zip file
 export const getZipFilePath = function (
 	program: Command
 ): string {
-	const dir = path.resolve(process.cwd(), program.dir);
-	return path.join(dir, 'deploy.zip');
+	return path.join(cwd(program), 'deploy.zip');
 };
 
 // Finds a list of directories and files that will be uploaded
@@ -46,7 +65,7 @@ export const getSources = async function (
 					reject: (err: Error) => any
 				) => {
 					glob(sourceGlob, {
-						cwd: program.dir,
+						cwd: cwd(program),
 						realpath: true,
 					}, (
 						err: ?Error,
@@ -102,7 +121,7 @@ export const zipUpCurrentDirectory = function (
 	sources: Array<string>,
 	program: Command
 ): Promise<string> {
-	const dir = path.resolve(process.cwd(), program.dir);
+	const dir = cwd(program);
 
 	return new Promise((
 		resolve: (zipPath: any) => void,

@@ -7,6 +7,7 @@ import {
 } from '../types/config';
 import chalk from 'chalk';
 import {type Command} from 'commander';
+import {getAppName} from './local';
 import ora from 'ora';
 
 const NVM_INSTALL_URL = 'https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh';
@@ -131,6 +132,34 @@ export const installNpmDependencies = async function (
 	return true;
 };
 
+// Installs pm2 on the target server
+export const installPm2 = async function (
+	program: Command,
+	debug: (msg: string) => any,
+	server: ServerType
+) {
+	const spinner = ora('Installing pm2 on target server...');
+	if (!program.verbose) spinner.start();
+
+	const cmds = [
+		'npm install pm2@latest -g',
+		'pm2 update',
+	];
+
+	try {
+		await serverRunMultiple(cmds, debug, server);
+	} catch (err) {
+		spinner.fail(
+			`${chalk.red('[FAILURE]')} Failed to install pm2 on target server.`
+		);
+		throw err;
+	}
+
+	spinner.succeed(
+		`Latest version of pm2 has been installed on target server.`
+	);
+};
+
 // Installs yarn on the target server
 export const installYarn = async function (
 	program: Command,
@@ -171,22 +200,35 @@ export const restartServices = async function (
 	const spinner = ora('Restarting services...');
 	if (!program.verbose) spinner.start();
 
-	// TODO: This doesn't wait for the install to finish
+	const name = getAppName(config, program);
+	let needsInitialStart = false;
+
+	// Check to see if the application needs to be started for the first time,
+	// or restarted.
+	try {
+		const {stderr} = await serverRun(`pm2 show ${name}`, debug, server);
+		needsInitialStart = stderr.includes(`doesn't exist`);
+	} catch (err) {
+		console.error(chalk.red(err));
+	}
+
 	const cmds = [
-		// Start with: `pm2 start npm --name "yarn" -- start`
-		`pm2 restart yarn`,
+		needsInitialStart ?
+			`cd ${config.target_dir} && pm2 start npm --name "${name}" -- start` :
+			`pm2 restart ${name}`,
 	];
 
 	try {
 		await serverRunMultiple(cmds, debug, server);
 	} catch (err) {
 		spinner.fail(
-			`${chalk.red('[FAILURE]')} Failed to restart services on target server.`
+			`${chalk.red('[FAILURE]')} Failed to start ${name} service on ` +
+			`target server.`
 		);
 		throw err;
 	}
 
-	spinner.succeed(`Services have been restarted.`);
+	spinner.succeed(`Service has been restarted.`);
 	return true;
 };
 
