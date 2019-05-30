@@ -80,7 +80,7 @@ explorer.search(program.dir)
 			});
 
 		// Warn about missing commands
-		if (!program.args.length) {
+		if (!program.args || !program.args.length) {
 			console.error(chalk.red(`No commands specified. Try 'deploy run' instead.`));
 		}
 

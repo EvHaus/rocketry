@@ -1,5 +1,20 @@
 {
+    "env": {
+        "jest": true,
+    },
     "extends": "eslint-config-cumul8",
+    "overrides": [{
+        "files": [
+            "**/__mocks__/**",
+            "*.test.js"
+        ],
+        "rules": {
+            "flowtype/no-types-missing-file-annotation": "off",
+            "flowtype/require-parameter-type": "off",
+            "flowtype/require-return-type": "off",
+            "flowtype/require-valid-file-annotation": "off"
+        }
+    }],
     "rules": {
         "no-console": "off",
         "promise/no-native": "off"

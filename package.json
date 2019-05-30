@@ -20,11 +20,12 @@
 		"eslint": "eslint-cumul8 src",
 		"flow": "flow",
 		"flow-typed:update": "rm -rf flow-typed && flow-typed install --ignoreDeps dev",
+		"jest": "jest",
 		"lint": "yarn packagelint && yarn eslint",
 		"packagelint": "prettier-package-json --use-tabs --write ./package.json",
 		"prepare": "yarn build",
 		"start": "babel-node ./src run -D example -v",
-		"test": "yarn flow && yarn lint"
+		"test": "yarn flow && yarn lint && yarn jest"
 	},
 	"dependencies": {
 		"@hapi/joi": "^15.0.3",
@@ -45,8 +46,9 @@
 		"@babel/preset-env": "^7.4.5",
 		"@babel/preset-flow": "^7.0.0",
 		"eslint-config-cumul8": "^8.0.50",
-		"flow-bin": "^0.98.1",
+		"flow-bin": "^0.99.1",
 		"flow-typed": "^2.5.2",
+		"jest": "^24.8.0",
 		"prettier-package-json": "^2.1.0"
 	},
 	"keywords": [
