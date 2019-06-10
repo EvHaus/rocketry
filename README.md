@@ -25,6 +25,7 @@ These are the goals for this project:
 	- [x] Install/upgrade `node` dependencies on target server
 	- [x] Start/restart of services on target server
 	- [x] Start the application if it's the first deployment, otherwise restart it for updates
+	- [x] Integration with CI systems for automated deployment triggers
 	- [ ] Seamless deployments without downtime
 
 ## Deploy an example application

@@ -23,6 +23,9 @@ import inquirer from 'inquirer';
 import nodeSSH from 'node-ssh';
 import ora from 'ora';
 
+// eslint-disable-next-line no-process-env
+const DEPLOY_PW = process.env.DEPLOY_PW;
+
 class Deploy {
 	_sshPassword: string;
 
@@ -39,14 +42,18 @@ class Deploy {
 	}
 
 	// Ask the user for the password to unlock their private SSH key
-	async askForPassword () {
-		const result = await inquirer.prompt<{password: string}>([{
-			message: 'What is your private SSH key passphrase?',
-			name: 'password',
-			type: 'password',
-		}]);
+	async getSshPassword () {
+		if (!DEPLOY_PW) {
+			const result = await inquirer.prompt<{password: string}>([{
+				message: 'What is your private SSH key passphrase?',
+				name: 'password',
+				type: 'password',
+			}]);
 
-		this._sshPassword = result.password;
+			this._sshPassword = result.password;
+		} else {
+			this._sshPassword = DEPLOY_PW;
+		}
 	}
 
 	// Connects to the target server
@@ -70,9 +77,16 @@ class Deploy {
 		}).catch(async (err: Error): Promise<ServerType> => {
 			// This is what ssh2 returns when the password isn't right
 			if (err && err.message.includes('Cannot parse privateKey')) {
-				spinner.fail(`Wrong private SSH key password provided. Try again.`);
-				await this.askForPassword();
-				return this.connectToServer();
+				if (DEPLOY_PW) {
+					spinner.fail(
+						`Wrong private SSH key password provided in the DEPLOY_PW environment variable.`
+					);
+					throw err;
+				} else {
+					spinner.fail(`Wrong private SSH key password provided. Try again.`);
+					await this.getSshPassword();
+					return this.connectToServer();
+				}
 			}
 
 			spinner.fail(
@@ -91,7 +105,7 @@ class Deploy {
 		this.debug(`Executing 'run' command...`);
 
 		try {
-			await this.askForPassword();
+			await this.getSshPassword();
 			this.server = await this.connectToServer();
 
 			await installAptUpdates(this.program, this.debug, this.server);
