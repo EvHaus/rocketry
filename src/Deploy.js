@@ -23,6 +23,14 @@ import inquirer from 'inquirer';
 import nodeSSH from 'node-ssh';
 import ora from 'ora';
 
+type SshConnectConfigType = {
+	host: string,
+	passphrase?: ?string,
+	password?: ?string,
+	privateKey?: ?string,
+	username: string,
+};
+
 // eslint-disable-next-line no-process-env
 const DEPLOY_PW = process.env.DEPLOY_PW;
 
@@ -42,18 +50,14 @@ class Deploy {
 	}
 
 	// Ask the user for the password to unlock their private SSH key
-	async getSshPassword () {
-		if (!DEPLOY_PW) {
-			const result = await inquirer.prompt<{password: string}>([{
-				message: 'What is your private SSH key passphrase?',
-				name: 'password',
-				type: 'password',
-			}]);
+	async askSshPassword () {
+		const result = await inquirer.prompt<{password: string}>([{
+			message: 'What is your private SSH key passphrase?',
+			name: 'password',
+			type: 'password',
+		}]);
 
-			this._sshPassword = result.password;
-		} else {
-			this._sshPassword = DEPLOY_PW;
-		}
+		this._sshPassword = result.password;
 	}
 
 	// Connects to the target server
@@ -62,38 +66,52 @@ class Deploy {
 
 		const spinner = ora(`Connecting to ${chalk.yellow(host)}...`).start();
 
-		validatePrivateKeyPath(private_key_path);
+		if (private_key_path) validatePrivateKeyPath(private_key_path);
 
 		const client = new nodeSSH();
 
-		return client.connect({
+		const connectConfig: SshConnectConfigType = {
 			host,
 			username: user,
-			privateKey: private_key_path,
-			passphrase: this._sshPassword,
-		}).then((client: ServerType): ServerType => {
-			spinner.succeed(`Connected to ${chalk.yellow(host)}`);
-			return client;
-		}).catch(async (err: Error): Promise<ServerType> => {
-			// This is what ssh2 returns when the password isn't right
-			if (err && err.message.includes('Cannot parse privateKey')) {
-				if (DEPLOY_PW) {
+		};
+
+		if (DEPLOY_PW) {
+			// Passwords are assumed to be base64 encoded
+			const decoded = Buffer.from(DEPLOY_PW, 'base64').toString();
+			connectConfig.password = decoded;
+		} else {
+			connectConfig.privateKey = private_key_path;
+			connectConfig.passphrase = this._sshPassword;
+		}
+
+		return client.connect(connectConfig)
+			.then((client: ServerType): ServerType => {
+				spinner.succeed(`Connected to ${chalk.yellow(host)}`);
+				return client;
+			})
+			.catch(async (err: Error): Promise<ServerType> => {
+				if (DEPLOY_PW && err && err.message.includes('All configured authentication methods failed')) {
 					spinner.fail(
-						`Wrong private SSH key password provided in the DEPLOY_PW environment variable.`
+						`Unable to connect to SSH server with DEPLOY_PW password. ` +
+						`You either provided an invalid password or ` +
+						`you need to set PasswordAuthentication to 'yes' in ` +
+						`your server's /etc/ssh/sshd_config config file.`
 					);
 					throw err;
-				} else {
+				}
+
+				// This is what ssh2 returns when the password isn't right
+				if (err && err.message.includes('Cannot parse privateKey')) {
 					spinner.fail(`Wrong private SSH key password provided. Try again.`);
-					await this.getSshPassword();
+					await this.askSshPassword();
 					return this.connectToServer();
 				}
-			}
 
-			spinner.fail(
-				`${chalk.red('[FAILURE]')} Could not connect to remote server.`
-			);
-			throw err;
-		});
+				spinner.fail(
+					`${chalk.red('[FAILURE]')} Could not connect to remote server.`
+				);
+				throw err;
+			});
 	}
 
 	debug = (msg: string) => {
@@ -105,7 +123,7 @@ class Deploy {
 		this.debug(`Executing 'run' command...`);
 
 		try {
-			await this.getSshPassword();
+			if (!DEPLOY_PW) await this.askSshPassword();
 			this.server = await this.connectToServer();
 
 			await installAptUpdates(this.program, this.debug, this.server);

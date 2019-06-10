@@ -28,7 +28,6 @@ const configSchema = joi.object().keys({
 		.error(new Error(`The 'host' configuration value must be a valid IP and cannot be empty`)),
 	name: joi.string(),
 	private_key_path: joi.string()
-		.required()
 		.error(new Error(`The 'private_key_path' configuration value must be a string and cannot be empty`)),
 	sources: joi.array()
 		.items(joi.string())
