@@ -110,8 +110,7 @@ export const validatePrivateKeyPath = function (
 		fs.readFileSync(filePath);
 	} catch (err) {
 		throw new Error(
-			`Can't find private SSH key in ${chalk.yellow(filePath)}. ` +
-			`Make sure you're running this script via Bash.`
+			`Can't find private SSH key in ${chalk.yellow(filePath)}.`
 		);
 	}
 };

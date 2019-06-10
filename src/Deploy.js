@@ -66,7 +66,8 @@ class Deploy {
 
 		const spinner = ora(`Connecting to ${chalk.yellow(host)}...`).start();
 
-		if (private_key_path) validatePrivateKeyPath(private_key_path);
+		// Only validate private key path if we're not using a password
+		if (private_key_path && !DEPLOY_PW) validatePrivateKeyPath(private_key_path);
 
 		const client = new nodeSSH();
 
