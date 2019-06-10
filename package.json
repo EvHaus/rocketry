@@ -46,7 +46,7 @@
 		"@babel/preset-env": "^7.4.5",
 		"@babel/preset-flow": "^7.0.0",
 		"eslint-config-cumul8": "^8.0.50",
-		"flow-bin": "^0.99.1",
+		"flow-bin": "^0.100.0",
 		"flow-typed": "^2.5.2",
 		"jest": "^24.8.0",
 		"prettier-package-json": "^2.1.0"
