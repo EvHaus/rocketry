@@ -1,24 +1,40 @@
-# deploy
+<div align="center">
 
-> A tool for automating deployments of Node.js projects to compute instances
+<h1>@globexdesigns/deploy</h1>
+
+<a href="https://www.joypixels.com/emoji/1f680">
+  <img alt="deploy" src="logo.png" width="128" />
+</a>
+
+<p><em>Simple & integrated deployment automation for Node.js projects.</em></p>
 
 <a href="https://www.npmjs.com/package/@globexdesigns/deploy"><img alt="NPM Status" src="https://img.shields.io/npm/v/@globexdesigns/deploy.svg?style=flat"></a>
+<a href="https://www.npmtrends.com/@globexdesigns/deploy"><img alt="NPM Download Stats" src="https://img.shields.io/npm/dm/@globexdesigns/deploy.svg?style=flat-square" /></a>
+<a href="https://github.com/EvHaus/deploy/blob/master/LICENSE"><img alt="NPM Download Stats" src="https://img.shields.io/npm/l/@globexdesigns/deploy.svg?style=flat-square" /></a>
 
-## About
+</div><hr />
 
-Services like [DigitalOcean](https://www.digitalocean.com/)'s droplets or [Linode](https://www.linode.com/)'s linodes make it super easy to create deployment targets for websites and other Node.js projects. However, there are still a lot of manual steps developers have to do in order to get the servers setup, configured and ready to be used for production.
+## The Problem
 
-The goal of this tool is to make all those deployment steps a single command. You should focus on developing the features of your project, and let this tool handle the server setup and deployment automation.
+Services like [DigitalOcean](https://www.digitalocean.com/)'s _droplets_ and [Linode](https://www.linode.com/)'s _linodes_ make it super easy to create deployment targets for websites and other Node.js projects. However, there are still a lot of manual steps developers have to do in order to ship the app: install Node, install a runner like `pm2` or `forever`, install system security patches, zip up & upload the app, create the necessary target directories, and more.
 
-## Goals
+## The Solution
+
+Once you define a single configuration `.deployrc` file, you can run `npx deploy run` and everything will be handled for you. Then, with a few other small steps, you can automate the entire process via a CI tool so deployments occur automatically anytime you push changes to your `master` branch.
+
+## Installation & Usage
+
+For instructions on how to use the tool, see [/docs](/docs/README.md).
+
+## Goals & Roadmap
 
 These are the goals for this project:
 
 - [x] Installation & setup of target server
-	- [x] Install `node` or upgrade it to the latest version
-	- [x] Install `yarn` or upgrade it to the latest version
-	- [x] Install `pm2` or upgrade it to the latest version
-	- [x] Upgrade `apt-get` packages to ensure the latest security patches are installed
+	- [x] Install `node` and upgrade it to the latest version
+	- [x] Install `yarn` and upgrade it to the latest version
+	- [x] Install `pm2` and upgrade it to the latest version
+	- [x] Upgrade `apt-get` packages to ensure the latest system security patches are installed
 - [x] Automation of deployment steps
 	- [x] Create target directories on target server
 	- [x] Upload local project files to target server
@@ -26,9 +42,17 @@ These are the goals for this project:
 	- [x] Start/restart of services on target server
 	- [x] Start the application if it's the first deployment, otherwise restart it for updates
 	- [x] Integration with CI systems for automated deployment triggers
+	- [x] Automated deployments via username & password
+	- [ ] Automated deployments via SSH key
 	- [ ] Seamless deployments without downtime
 
-## Deploy an example application
+## Contributing
+
+Contributions for bug fixes and new features are welcome via Pull Requests.
+
+### Simulate a Deployment
+
+To simulate a deployment (to test the script), clone this project and run:
 
 ```sh
 yarn start
