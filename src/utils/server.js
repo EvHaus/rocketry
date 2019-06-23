@@ -287,6 +287,7 @@ export const serverRunMultiple = function (
 				cwd
 			);
 
+			// eslint-disable-next-line require-atomic-updates
 			cwd = cmdResponse.cwd;
 
 			return cmdResponse;

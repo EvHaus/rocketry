@@ -2,7 +2,7 @@
     "env": {
         "jest": true,
     },
-    "extends": "eslint-config-cumul8",
+    "extends": "eslint-config-globex",
     "overrides": [{
         "files": [
             "**/__mocks__/**",
@@ -18,5 +18,10 @@
     "rules": {
         "no-console": "off",
         "promise/no-native": "off"
-    }
+    },
+    settings: {
+        react: {
+            version: '16.0.0',
+        },
+    },
 }

@@ -12,7 +12,7 @@ export type ConfigType = {|
 |};
 
 export type ServerCommandResponseType = {|
-	...SshCommandResponseType,
+	...$Exact<SshCommandResponseType>,
 	cwd: ?string,
 |};
 

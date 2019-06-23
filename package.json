@@ -17,7 +17,7 @@
 	},
 	"scripts": {
 		"build": "babel src -d bin",
-		"eslint": "eslint-cumul8 src",
+		"eslint": "eslint-globex src",
 		"flow": "flow",
 		"flow-typed:update": "rm -rf flow-typed && flow-typed install --ignoreDeps dev",
 		"jest": "jest",
@@ -45,7 +45,7 @@
 		"@babel/plugin-proposal-class-properties": "^7.4.4",
 		"@babel/preset-env": "^7.4.5",
 		"@babel/preset-flow": "^7.0.0",
-		"eslint-config-cumul8": "^8.0.50",
+		"eslint-config-globex": "^1.0.2",
 		"flow-bin": "^0.101.1",
 		"flow-typed": "^2.5.2",
 		"jest": "^24.8.0",
