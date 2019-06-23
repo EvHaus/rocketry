@@ -28,13 +28,13 @@
 		"test": "yarn flow && yarn lint && yarn jest"
 	},
 	"dependencies": {
-		"@hapi/joi": "^15.0.3",
+		"@hapi/joi": "^15.1.0",
 		"archiver": "^3.0.0",
 		"chalk": "^2.4.2",
 		"commander": "^2.20.0",
 		"cosmiconfig": "^5.2.1",
 		"glob": "^7.1.4",
-		"inquirer": "^6.3.1",
+		"inquirer": "^6.4.1",
 		"node-ssh": "^6.0.0",
 		"ora": "^3.4.0"
 	},
@@ -46,7 +46,7 @@
 		"@babel/preset-env": "^7.4.5",
 		"@babel/preset-flow": "^7.0.0",
 		"eslint-config-cumul8": "^8.0.50",
-		"flow-bin": "^0.101.0",
+		"flow-bin": "^0.101.1",
 		"flow-typed": "^2.5.2",
 		"jest": "^24.8.0",
 		"prettier-package-json": "^2.1.0"
