@@ -6,7 +6,7 @@
   <img alt="deploy" src="logo.png" width="128" />
 </a>
 
-<p><em>Simple & integrated deployment automation for Node.js projects.</em></p>
+<p><em>Simple & opinionated deployment automation for Node.js projects.</em></p>
 
 <a href="https://www.npmjs.com/package/@globexdesigns/deploy"><img alt="NPM Status" src="https://img.shields.io/npm/v/@globexdesigns/deploy.svg?style=flat"></a>
 <a href="https://www.npmtrends.com/@globexdesigns/deploy"><img alt="NPM Download Stats" src="https://img.shields.io/npm/dm/@globexdesigns/deploy.svg?style=flat-square" /></a>
@@ -37,7 +37,7 @@ These are the goals for this project:
 	- [x] Upgrade `apt-get` packages to ensure the latest system security patches are installed
 - [x] Automation of deployment steps
 	- [x] Create target directories on target server
-	- [x] Upload local project files to target server
+	- [x] Upload local project files to target server via SSH
 	- [x] Install/upgrade `node` dependencies on target server
 	- [x] Start/restart of services on target server
 	- [x] Start the application if it's the first deployment, otherwise restart it for updates
@@ -45,6 +45,13 @@ These are the goals for this project:
 	- [x] Automated deployments via username & password
 	- [ ] Automated deployments via SSH key
 	- [ ] Seamless deployments without downtime
+
+## Other Solutions
+
+How does this project differ from similar existing public projects?
+
+- [`CodeShip`](https://codeship.com/about) - Amazing but not free or open-source
+- [`shipit`](https://github.com/shipitjs/shipit) - JavaScript-based (as opposed to configuration-based) and doesn't support server-side package upgrades.
 
 ## Contributing
 
@@ -57,3 +64,7 @@ To simulate a deployment (to test the script), clone this project and run:
 ```sh
 yarn start
 ```
+
+## LICENSE
+
+MIT
