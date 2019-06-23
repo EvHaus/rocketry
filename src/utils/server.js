@@ -47,7 +47,9 @@ export const installAptUpdates = async function (
 	const cmds = [
 		`sudo apt-get update`,
 		`sudo apt-get install -y unzip`,
-		`sudo apt-get upgrade -y`,
+		// DEBIAN_FRONTEND is needed here to force restart of services.
+		// See: https://bugs.launchpad.net/ubuntu/+source/eglibc/+bug/935681
+		`DEBIAN_FRONTEND=noninteractive sudo apt-get upgrade -y`,
 		`sudo apt-get autoremove -y`,
 	];
 

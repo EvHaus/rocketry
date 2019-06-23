@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
-- 
+- `apt-get upgrade` commands will no longer stall on upgrades where services starts are required
 
 ----
 
