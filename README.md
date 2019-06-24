@@ -6,7 +6,7 @@
   <img alt="deploy" src="logo.png" width="128" />
 </a>
 
-<p><em>Simple & opinionated deployment automation for Node.js projects.</em></p>
+<p><em>Simple deployment automation & continuous delivery for Node.js projects.</em></p>
 
 <a href="https://www.npmjs.com/package/@globexdesigns/deploy"><img alt="NPM Status" src="https://img.shields.io/npm/v/@globexdesigns/deploy.svg?style=flat"></a>
 <a href="https://www.npmtrends.com/@globexdesigns/deploy"><img alt="NPM Download Stats" src="https://img.shields.io/npm/dm/@globexdesigns/deploy.svg?style=flat-square" /></a>
@@ -50,8 +50,10 @@ These are the goals for this project:
 
 How does this project differ from similar existing public projects?
 
-- [`CodeShip`](https://codeship.com/about) - Amazing but not free or open-source
-- [`shipit`](https://github.com/shipitjs/shipit) - JavaScript-based (as opposed to configuration-based) and doesn't support server-side package upgrades.
+- [`dploy`](https://github.com/lucasmotta/dploy) - Doesn't support server-side package upgrades
+- [`dployr`](https://github.com/faazshift/dployr) - Assumes the Git project is accessible from the server
+- [`shipit`](https://github.com/shipitjs/shipit) - JavaScript-based (as opposed to configuration-based) and doesn't support server-side package upgrades
+- [`zaz`](https://github.com/bredikhin/zaz) - Assumes the Git project is accessible from the server
 
 ## Contributing
 
