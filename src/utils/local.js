@@ -43,7 +43,7 @@ export const getAppName = function (
 export const getZipFilePath = function (
 	program: Command
 ): string {
-	return path.join(cwd(program), 'deploy.zip');
+	return path.join(cwd(program), 'rocketry.zip');
 };
 
 // Finds a list of directories and files that will be uploaded
@@ -53,7 +53,7 @@ export const getSources = async function (
 	program: Command
 ): Promise<Array<string>> {
 	const spinner = ora('Compiling a list of source files...');
-	if (!program.verbose) spinner.start();
+	if (!program.debug) spinner.start();
 
 	try {
 		const responses: Array<Array<string>> = await Promise.all(
@@ -127,7 +127,7 @@ export const zipUpCurrentDirectory = function (
 		reject: (err: Error) => void
 	) => {
 		const spinner = ora('Creating deployment archive...');
-		if (!program.verbose) spinner.start();
+		if (!program.debug) spinner.start();
 
 		const outputPath = getZipFilePath(program);
 		const output = fs.createWriteStream(outputPath);

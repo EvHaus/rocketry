@@ -4,10 +4,10 @@
 import chalk from 'chalk';
 import {type ConfigType} from './types/config';
 import cosmiconfig from 'cosmiconfig';
-import Deploy from './Deploy';
 import joi from '@hapi/joi';
 import pkg from '../package';
 import program from 'commander';
+import Rocketry from './Rocketry';
 
 // Define global CLI options
 program
@@ -17,7 +17,7 @@ program
 		'Path to the directory you want to run your deployment from. Defaults to process.cwd().',
 		process.cwd()
 	)
-	.option('-v, --verbose', 'Show verbose debug messages')
+	.option('-d, --debug', 'Show verbose debug messages')
 	.parse(process.argv);
 
 // Define config schema
@@ -40,7 +40,7 @@ const configSchema = joi.object().keys({
 		.error(new Error(`The 'user' configuration value must be a string and cannot be empty`)),
 });
 
-const explorer = cosmiconfig('deploy');
+const explorer = cosmiconfig('rocketry');
 
 // Search for a configuration by walking up directories.
 // See documentation for search, below.
@@ -69,7 +69,7 @@ explorer.search(program.dir)
 		program
 			.command('run')
 			.description('Perform a production deployment')
-			.action((): any => new Deploy(config, program));
+			.action((): any => new Rocketry(config, program));
 
 		// Warn about commands we don't support
 		program
@@ -80,7 +80,7 @@ explorer.search(program.dir)
 
 		// Warn about missing commands
 		if (!program.args || !program.args.length) {
-			console.error(chalk.red(`No commands specified. Try 'deploy run' instead.`));
+			console.error(chalk.red(`No commands specified. Try 'rocketry run' instead.`));
 		}
 
 		return program.parse(process.argv);

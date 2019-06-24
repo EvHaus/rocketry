@@ -1,6 +1,6 @@
 <div align="center">
 
-<h1>@globexdesigns/deploy</h1>
+<h1>rocketry</h1>
 
 <a href="https://www.joypixels.com/emoji/1f680">
   <img alt="deploy" src="logo.png" width="128" />

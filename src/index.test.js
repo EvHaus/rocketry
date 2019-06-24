@@ -14,9 +14,9 @@ describe('index', () => {
 		);
 	});
 
-	it('should register the "--verbose" option', () => {
+	it('should register the "--debug" option', () => {
 		expect(program.option).toHaveBeenCalledWith(
-			'-v, --verbose',
+			'-d, --debug',
 			jasmine.any(String)
 		);
 	});

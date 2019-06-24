@@ -42,7 +42,7 @@ export const installAptUpdates = async function (
 	server: ServerType
 ) {
 	const spinner = ora('Installing node on target server...');
-	if (!program.verbose) spinner.start();
+	if (!program.debug) spinner.start();
 
 	const cmds = [
 		`sudo apt-get update`,
@@ -74,7 +74,7 @@ export const installNode = async function (
 	server: ServerType
 ) {
 	const spinner = ora('Installing node on target server...');
-	if (!program.verbose) spinner.start();
+	if (!program.debug) spinner.start();
 
 	const cmds = [
 		// TODO: This command isn't being waited on to be finished...
@@ -115,7 +115,7 @@ export const installNpmDependencies = async function (
 	server: ServerType
 ): Promise<boolean> {
 	const spinner = ora('Installing npm dependencies...');
-	if (!program.verbose) spinner.start();
+	if (!program.debug) spinner.start();
 
 	const {target_dir} = config;
 
@@ -141,7 +141,7 @@ export const installPm2 = async function (
 	server: ServerType
 ) {
 	const spinner = ora('Installing pm2 on target server...');
-	if (!program.verbose) spinner.start();
+	if (!program.debug) spinner.start();
 
 	const cmds = [
 		'npm install pm2@latest -g',
@@ -169,7 +169,7 @@ export const installYarn = async function (
 	server: ServerType
 ) {
 	const spinner = ora('Installing node on target server...');
-	if (!program.verbose) spinner.start();
+	if (!program.debug) spinner.start();
 
 	const cmds = [
 		`curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 sudo apt-key add -`,
@@ -200,7 +200,7 @@ export const restartServices = async function (
 	server: ServerType
 ): Promise<boolean> {
 	const spinner = ora('Restarting services...');
-	if (!program.verbose) spinner.start();
+	if (!program.debug) spinner.start();
 
 	const name = getAppName(config, program);
 	let needsInitialStart = false;
@@ -316,10 +316,10 @@ export const uploadZipToServer = async function ({
 	server: ServerType,
 |}) {
 	const spinner = ora(`Uploading ${chalk.yellow(localZipPath)} to server...`);
-	if (!program.verbose) spinner.start();
+	if (!program.debug) spinner.start();
 
 	const {target_dir} = config;
-	const target = `${target_dir}/deploy.zip`;
+	const target = `${target_dir}/rocketry.zip`;
 
 	await server.putFile(localZipPath, target);
 
@@ -332,7 +332,7 @@ export const uploadZipToServer = async function ({
 		await serverRunMultiple([
 			`cd ${target_dir}`,
 			`unzip -ao ${target}`,
-			`rm -f deploy.zip`,
+			`rm -f rocketry.zip`,
 		], debug, server);
 	} catch (error) {
 		spinner.fail(

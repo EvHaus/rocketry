@@ -1,15 +1,15 @@
 {
-	"name": "@globexdesigns/deploy",
+	"name": "rocketry",
 	"description": "Deployment script for public websites",
 	"license": "MIT",
 	"author": "Ev Haus",
-	"homepage": "https://github.com/GlobexDesignsInc/deploy#readme",
+	"homepage": "https://github.com/GlobexDesignsInc/rocketry#readme",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/GlobexDesignsInc/deploy.git"
+		"url": "git+https://github.com/GlobexDesignsInc/rocketry.git"
 	},
 	"bugs": {
-		"url": "https://github.com/GlobexDesignsInc/deploy/issues"
+		"url": "https://github.com/GlobexDesignsInc/rocketry/issues"
 	},
 	"version": "0.5.3",
 	"bin": {
@@ -24,7 +24,7 @@
 		"lint": "yarn packagelint && yarn eslint",
 		"packagelint": "prettier-package-json --use-tabs --write ./package.json",
 		"prepare": "yarn build",
-		"start": "babel-node ./src run -D example -v",
+		"start": "babel-node ./src run -D example --debug",
 		"test": "yarn flow && yarn lint && yarn jest"
 	},
 	"dependencies": {
@@ -53,14 +53,23 @@
 	},
 	"keywords": [
 		"automation",
+		"continuous",
 		"deploy",
 		"deployer",
 		"deployment",
+		"deliver",
+		"delivery",
 		"digitalocean",
 		"droplet",
 		"linode",
+		"intergration",
+		"launch",
 		"node",
-		"nodejs"
+		"nodejs",
+		"release",
+		"rocket",
+		"rocketry",
+		"script"
 	],
 	"publishConfig": {
 		"access": "public"
