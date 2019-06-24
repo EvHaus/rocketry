@@ -20,7 +20,7 @@ Services like [DigitalOcean](https://www.digitalocean.com/)'s _droplets_ and [Li
 
 ## The Solution
 
-Once you define a single configuration `.deployrc` file, you can run `npx deploy run` and everything will be handled for you. Then, with a few other small steps, you can automate the entire process via a CI tool so deployments occur automatically anytime you push changes to your `master` branch.
+Once you define a single configuration `.rocketryrc` file, you can run `npx deploy run` and everything will be handled for you. Then, with a few other small steps, you can automate the entire process via a CI tool so deployments occur automatically anytime you push changes to your `master` branch.
 
 ## Installation & Usage
 

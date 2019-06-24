@@ -11,7 +11,7 @@
 	"bugs": {
 		"url": "https://github.com/GlobexDesignsInc/rocketry/issues"
 	},
-	"version": "0.5.3",
+	"version": "0.6.0",
 	"bin": {
 		"deploy": "./bin/index.js"
 	},
@@ -54,16 +54,17 @@
 	"keywords": [
 		"automation",
 		"continuous",
+		"continuous-delivery",
+		"deliver",
+		"delivery",
 		"deploy",
 		"deployer",
 		"deployment",
-		"deliver",
-		"delivery",
 		"digitalocean",
 		"droplet",
-		"linode",
-		"intergration",
+		"integration",
 		"launch",
+		"linode",
 		"node",
 		"nodejs",
 		"release",

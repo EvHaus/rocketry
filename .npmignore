@@ -9,3 +9,6 @@ src
 .flowconfig
 .github
 *.test.js
+CHANGELOG.md
+logo.png
+jest.config.js

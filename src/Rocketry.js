@@ -34,7 +34,7 @@ type SshConnectConfigType = {|
 // eslint-disable-next-line no-process-env
 const DEPLOY_PW = process.env.DEPLOY_PW;
 
-class Deploy {
+class Rocketry {
 	_sshPassword: string;
 
 	config: ConfigType;
@@ -161,4 +161,4 @@ class Deploy {
 	}
 }
 
-export default Deploy;
+export default Rocketry;
