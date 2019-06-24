@@ -46,7 +46,8 @@ export const installAptUpdates = async function (
 
 	const cmds = [
 		`sudo apt-get update`,
-		`sudo apt-get install -y unzip`,
+		// curl and wget are needed for some servers which are barebones
+		`sudo apt-get install -y curl unzip wget`,
 		// DEBIAN_FRONTEND is needed here to force restart of services.
 		// See: https://bugs.launchpad.net/ubuntu/+source/eglibc/+bug/935681
 		`DEBIAN_FRONTEND=noninteractive sudo apt-get upgrade -y`,
