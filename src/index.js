@@ -71,11 +71,16 @@ explorer.search(program.dir)
 			.description('Perform a production deployment')
 			.action((): any => new Rocketry(config, program));
 
+		program
+			.command('version')
+			.description('Prints the current version of `rocketry`')
+			.action((): any => console.log(pkg.version));
+
 		// Warn about commands we don't support
 		program
 			.command('*')
 			.action((cmd: string) => {
-				console.error(chalk.red(`'${cmd}' is not a valid command.`));
+				console.error(chalk.red(`'${cmd}' is not a valid \`rocketry\` command.`));
 			});
 
 		// Warn about missing commands

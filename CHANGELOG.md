@@ -7,9 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.6.0] - Unreleased
 
+### Added
+
+- Added `/docs` documentation
+- Added a new `rocketry version` command to print the current version
+
 ### Changed
 
 - Renamed the project to `rocketry`
+- Renamed the `DEPLOY_PW` environment variable to `ROCKETRY_PW`
 - The `-v --verbose` option has been renamed to `-d --debug`
 
 ### Fixed

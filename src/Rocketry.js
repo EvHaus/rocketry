@@ -32,7 +32,7 @@ type SshConnectConfigType = {|
 |};
 
 // eslint-disable-next-line no-process-env
-const DEPLOY_PW = process.env.DEPLOY_PW;
+const ROCKETRY_PW = process.env.ROCKETRY_PW;
 
 class Rocketry {
 	_sshPassword: string;
@@ -67,7 +67,7 @@ class Rocketry {
 		const spinner = ora(`Connecting to ${chalk.yellow(host)}...`).start();
 
 		// Only validate private key path if we're not using a password
-		if (private_key_path && !DEPLOY_PW) validatePrivateKeyPath(private_key_path);
+		if (private_key_path && !ROCKETRY_PW) validatePrivateKeyPath(private_key_path);
 
 		const client = new nodeSSH();
 
@@ -76,9 +76,9 @@ class Rocketry {
 			username: user,
 		};
 
-		if (DEPLOY_PW) {
+		if (ROCKETRY_PW) {
 			// Passwords are assumed to be base64 encoded
-			const decoded = Buffer.from(DEPLOY_PW, 'base64').toString();
+			const decoded = Buffer.from(ROCKETRY_PW, 'base64').toString();
 			connectConfig.password = decoded;
 		} else {
 			connectConfig.privateKey = private_key_path;
@@ -91,9 +91,9 @@ class Rocketry {
 				return client;
 			})
 			.catch(async (err: Error): Promise<ServerType> => {
-				if (DEPLOY_PW && err && err.message.includes('All configured authentication methods failed')) {
+				if (ROCKETRY_PW && err && err.message.includes('All configured authentication methods failed')) {
 					spinner.fail(
-						`Unable to connect to SSH server with DEPLOY_PW password. ` +
+						`Unable to connect to SSH server with ROCKETRY_PW password. ` +
 						`You either provided an invalid password or ` +
 						`you need to set PasswordAuthentication to 'yes' in ` +
 						`your server's /etc/ssh/sshd_config config file.`
@@ -124,7 +124,7 @@ class Rocketry {
 		this.debug(`Executing 'run' command...`);
 
 		try {
-			if (!DEPLOY_PW) await this.askSshPassword();
+			if (!ROCKETRY_PW) await this.askSshPassword();
 			this.server = await this.connectToServer();
 
 			await installAptUpdates(this.program, this.debug, this.server);
