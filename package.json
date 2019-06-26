@@ -13,7 +13,7 @@
 	},
 	"version": "0.6.0",
 	"bin": {
-		"deploy": "./bin/index.js"
+		"rocketry": "./bin/index.js"
 	},
 	"scripts": {
 		"build": "babel src -d bin",
