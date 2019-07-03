@@ -13,7 +13,7 @@
 	- [Commands](#commands)
 	- [Configuration Keys](#configuration-keys)
 
-## Quick Start
+## 🏃🏼‍ Quick Start
 <a name="quick-start" />
 
 ### Installation
@@ -100,7 +100,7 @@ yarn rocketry run
 
 You can add the `--debug` flag to the end of that command to see detailed output of exactly what `rocketry` is doing.
 
-## Documentation
+## 📝 Documentation
 <a name="documentation" />
 
 ### Commands
