@@ -125,12 +125,16 @@ The following configuration keys are supported:
 
 **Required Keys**
 
-- `host`: The IP address of the server you will be deploying to.
-- `sources`: An array of file and folder paths (using [`glob`](https://github.com/isaacs/node-glob) syntax) that you want uploaded to your server.
-- `target_dir`: The path to the target directory on the server where you want your application deployed.
-- `user`: The name of the SSH `user` to use to authenticate with the server.
+| Key              | Type            | Default Value | Description                                                                                                                             |
+|:-----------------|:----------------|:--------------|:----------------------------------------------------------------------------------------------------------------------------------------|
+| **`host`**       | `string`        |               | _The IP address of the server you will be deploying to._                                                                                |
+| **`sources`**    | `Array<string>` |               | _An array of file and folder paths (using [`glob`](https://github.com/isaacs/node-glob) syntax) that you want uploaded to your server._ |
+| **`target_dir`** | `string`        |               | _The path to the target directory on the server where you want your application deployed._                                              |
+| **`user`**       | `string`        | `root`        | _The name of the SSH `user` to use to authenticate with the server._                                                                    |
 
 **Optional Keys**
 
-- `name`: The name of your application (used in the `pm2` configuration). By default, the "name" value from your "package.json" will be used.
-- `private_key_path`: The path to your local private SSH key file which will be used to authenticate with the server.
+| Key                | Type     | Default Value                  | Description                                                                                                                           |
+|:-------------------|:---------|:-------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------|
+| `name`             | `string` | Your `package.json:name` value | _The name of your application (used in the `pm2` configuration). By default, the "name" value from your "package.json" will be used._ |
+| `private_key_path` | `string` |                                | _The path to your local private SSH key file which will be used to authenticate with the server._                                     |

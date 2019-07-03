@@ -36,6 +36,7 @@ const configSchema = joi.object().keys({
 		.required()
 		.error(new Error(`The 'target_dir' configuration value must be a string and cannot be empty`)),
 	user: joi.string()
+		.default('root', 'Defaults to "root" user')
 		.required()
 		.error(new Error(`The 'user' configuration value must be a string and cannot be empty`)),
 });
