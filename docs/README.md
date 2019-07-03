@@ -23,12 +23,12 @@ To get started, add `rocketry` as a dev dependency:
 
 ```sh
 # With npm
-npm install -D stylelint-config-globex
+npm install -D rocketry
 
 # or
 
 # With yarn
-yarn add -D stylelint-config-globex
+yarn add -D rocketry
 ```
 
 ### Configuration
