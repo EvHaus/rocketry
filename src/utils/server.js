@@ -41,7 +41,7 @@ export const installAptUpdates = async function (
 	debug: (msg: string) => any,
 	server: ServerType
 ) {
-	const spinner = ora('Installing node on target server...');
+	const spinner = ora('Installing apt updates on target server...');
 	if (!program.debug) spinner.start();
 
 	const cmds = [
@@ -169,7 +169,7 @@ export const installYarn = async function (
 	debug: (msg: string) => any,
 	server: ServerType
 ) {
-	const spinner = ora('Installing node on target server...');
+	const spinner = ora('Installing yarn on target server...');
 	if (!program.debug) spinner.start();
 
 	const cmds = [
