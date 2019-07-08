@@ -2171,10 +2171,10 @@ escodegen@^1.9.1:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-globex@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-globex/-/eslint-config-globex-2.0.0.tgz#7dd54315ea0b07138de0a4224e5a24847c6d1c41"
-  integrity sha512-4HivFde9HzYEX9bh8S8I9o5shUGMdH3jDrRdIlsMib3MPV+5HzUMuIKvN8vHKIz6KwTxX4MTJNj3nYuT0QSjcw==
+eslint-config-globex@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-globex/-/eslint-config-globex-2.0.1.tgz#f404d47c51e7aa0e27ae671163893bbfb218f1cc"
+  integrity sha512-Q9fcoBSf0rlMydyxOHqKTJ4Ool2mG0UUZzFUWIPphYS+ZldmogUIkoc9qtJFf4A7UKRmNR/uZ+0yVvRg+EzGPg==
   dependencies:
     babel-eslint "10.0.2"
     eslint "6.0.1"

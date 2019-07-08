@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
--
+- If `nvm` installation failures are detected, the deployment will now abort early.
+- Fixed an issue which would cause "npm: command not found" errors to appear in some cases after nvm installations
 
 ----
 

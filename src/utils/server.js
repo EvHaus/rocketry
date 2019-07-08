@@ -78,25 +78,35 @@ export const installNode = async function (
 	if (!program.debug) spinner.start();
 
 	const cmds = [
-		// TODO: This command isn't being waited on to be finished...
 		`wget -qO- ${NVM_INSTALL_URL} | bash`,
-		`source ~/.nvm/nvm.sh && nvm install stable`,
+		`nvm install stable`,
+		// Clean up
+		`nvm cache clear`,
 	];
 
 	try {
 		const {stderr} = await serverRunMultiple(cmds, debug, server);
 
-		// For some reaosn "already installed" responses are returned as
-		// errors. We can ignore them.
-		if (stderr && stderr.includes('is already installed')) {
-			// Do nothing
-		} else if (stderr) {
-			throw new Error(stderr);
-		}
+		// Send all `stderr` as errors, we'll deal with them below
+		if (stderr) throw new Error(stderr);
 	} catch (err) {
-		// For some reason `nvm` returns a successful upgrade as an error, so
-		// we have to ignore it and not throw
-		if (!String(err.message).includes('Checksums matched!')) {
+		// This is just here for documentation. It doesn't actually do anything.
+		if (
+			// For some reason "already installed" responses are returned as
+			// errors. We can ignore them.
+			err.message.includes('is already installed') ||
+			// For some reason `nvm` returns a successful upgrade as an error,
+			// so we have to ignore it and not throw
+			err.message.includes('Checksums matched!')
+		) {
+			// Do nothing
+		}
+
+		if (
+			// Here we check to see if `nvm cache clear` worked or not. If it
+			// didn't it means the nvm command wasn't properly installed.
+			err.message.includes('nvm: command not found')
+		) {
 			spinner.fail(
 				`${chalk.red('[FAILURE]')} Failed to install node on target server.`
 			);
@@ -150,7 +160,14 @@ export const installPm2 = async function (
 	];
 
 	try {
-		await serverRunMultiple(cmds, debug, server);
+		const {stderr} = await serverRunMultiple(cmds, debug, server);
+
+		// In some cases, after `nvm` commands, the `npm` command cannot be
+		// found. If this happens. Break out of the deployment early as we
+		// cannot continue safely.
+		if (stderr && stderr.includes('npm: command not found')) {
+			throw new Error(stderr);
+		}
 	} catch (err) {
 		spinner.fail(
 			`${chalk.red('[FAILURE]')} Failed to install pm2 on target server.`
@@ -237,15 +254,28 @@ export const restartServices = async function (
 
 // Runs a single command on the target server
 export const serverRun = async function (
+	// Command to run
 	cmd: string,
+	// A ref to the "debug()" command for printing messages
 	debug: (msg: string) => any,
+	// A ref to the current server instance
 	server: ServerType,
+	// The working directory from which to run the command
 	cwd?: ?string
 ): Promise<ServerCommandResponseType> {
 	debug(chalk.cyan(cmd));
 
-	// Run `pwd` after each command can save it for the next command
-	const command = `${cmd} && pwd`;
+	const command = (
+		// Source .nvm/nvm.sh before every command. Otherwise commands like
+		// `node` and `npm` will fail with "npm: command not found". The || op
+		// is used on purpose to errors from this command for cases where nvm
+		// isn't installed yet.
+		`source ~/.nvm/nvm.sh || ` +
+		// Run the actual command
+		`${cmd} && ` +
+		// Run `pwd` after each command can save it for the next command
+		`pwd`
+	);
 
 	const result = await server.execCommand(command, {
 		cwd,
@@ -269,11 +299,16 @@ export const serverRun = async function (
 
 // Runs multiple commands on the target server
 export const serverRunMultiple = function (
+	// Commands to run
 	cmds: Array<string>,
+	// A ref to the "debug()" command for printing messages
 	debug: (msg: string) => any,
+	// A ref to the current server instance
 	server: ServerType
 ): Promise<ServerCommandResponseType> {
 	let cwd;
+	let stdOuts = '';
+	let stdErrs = '';
 
 	// Chains promises serially
 	return cmds.reduce((
@@ -287,6 +322,12 @@ export const serverRunMultiple = function (
 				server,
 				cwd
 			);
+
+			// Concat all stderr and stdout commands together
+			stdOuts = `${stdOuts}\n${cmdResponse.stdout}`;
+			cmdResponse.stdout = stdOuts;
+			stdErrs = `${stdErrs}\n${cmdResponse.stderr}`;
+			cmdResponse.stderr = stdErrs;
 
 			// eslint-disable-next-line require-atomic-updates
 			cwd = cmdResponse.cwd;
