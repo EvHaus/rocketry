@@ -5,15 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.6.2] - Unreleased
+## [0.6.2] - 2019-07-08
 
 ### Fixed
 
-- 
+- Fixed an issue preventing the full stdout value from being seen when the `--debug` option is enabled
 
 ----
 
 ## [0.6.1] - 2019-07-08
+
+### Added
+
+- `nvm` cache is now cleaned up on every run
 
 ### Fixed
 

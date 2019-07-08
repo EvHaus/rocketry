@@ -269,12 +269,12 @@ export const serverRun = async function (
 		// Source .nvm/nvm.sh before every command. Otherwise commands like
 		// `node` and `npm` will fail with "npm: command not found". The || op
 		// is used on purpose to errors from this command for cases where nvm
-		// isn't installed yet.
-		`source ~/.nvm/nvm.sh || ` +
-		// Run the actual command
-		`${cmd} && ` +
-		// Run `pwd` after each command can save it for the next command
-		`pwd`
+		// isn't installed yet. The "echo" is needed to ensure the right stdout
+		// output is captured for the "--debug" option.
+		`source ~/.nvm/nvm.sh || echo "" && ` +
+		// Run `pwd` after each command can save it for the next command. The
+		// braces are needed to ensure the right stdout output is captured.
+		`${cmd} && pwd`
 	);
 
 	const result = await server.execCommand(command, {
