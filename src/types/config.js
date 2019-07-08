@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 
 import nodeSSH from 'node-ssh';
 

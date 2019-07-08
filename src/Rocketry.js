@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 
 import {type ConfigType, type ServerType} from './types/config';
 import {

@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 
 import archiver from 'archiver';
 import chalk from 'chalk';

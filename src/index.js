@@ -1,5 +1,4 @@
-#!/usr/bin/env node
-// @flow
+// @flow strict
 
 import chalk from 'chalk';
 import {type ConfigType} from './types/config';
