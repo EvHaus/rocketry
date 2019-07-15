@@ -50,6 +50,7 @@ These are the goals for this project:
 
 How does this project differ from similar existing public projects?
 
+- [`Netlify`](https://www.netlify.com/) - It's incredible, but not free past a certain point
 - [`dploy`](https://github.com/lucasmotta/dploy) - Doesn't support server-side package upgrades
 - [`dployr`](https://github.com/faazshift/dployr) - Assumes the Git project is accessible from the server
 - [`shipit`](https://github.com/shipitjs/shipit) - JavaScript-based (as opposed to configuration-based) and doesn't support server-side package upgrades
