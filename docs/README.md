@@ -12,6 +12,12 @@
 - [**Documentation**](#documentation)
 	- [Commands](#commands)
 	- [Configuration Keys](#configuration-keys)
+- [**Setup Guides**](#setup-guides)
+	- [Setup with DigitalOcean](#digitalocean)
+	- [Setup with Linode](#linode)
+- [**Integration Guides**](#integration-guides)
+	- [Integration with Github Actions](#github-actions)
+	- [Integration with Travis CI](#travis-ci)
 
 ## 🏃🏼‍ Quick Start
 <a name="quick-start" />
@@ -138,3 +144,29 @@ The following configuration keys are supported:
 |:-------------------|:---------|:-------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------|
 | `name`             | `string` | Your `package.json:name` value | _The name of your application (used in the `pm2` configuration). By default, the "name" value from your "package.json" will be used._ |
 | `private_key_path` | `string` |                                | _The path to your local private SSH key file which will be used to authenticate with the server._                                     |
+
+## Setup Guides
+<a name="setup-guides" />
+
+### Setup with DigitalOcean
+<a name="digitalocean" />
+
+Coming Soon
+
+### Setup with Linode
+<a name="linode" />
+
+Coming Soon
+
+## Integration Guides
+<a name="integration-guides" />
+
+### Integration with Github Actions
+<a name="github-actions" />
+
+Coming Soon
+
+### Integration with Travis CI
+<a name="travis-ci" />
+
+Coming Soon
