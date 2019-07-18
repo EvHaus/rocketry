@@ -3,13 +3,13 @@
 	"description": "Deployment script for public websites",
 	"license": "MIT",
 	"author": "Ev Haus",
-	"homepage": "https://github.com/GlobexDesignsInc/rocketry#readme",
+	"homepage": "https://github.com/EvHaus/rocketry#readme",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/GlobexDesignsInc/rocketry.git"
+		"url": "git+https://github.com/EvHaus/rocketry.git"
 	},
 	"bugs": {
-		"url": "https://github.com/GlobexDesignsInc/rocketry/issues"
+		"url": "https://github.com/EvHaus/rocketry/issues"
 	},
 	"version": "0.6.3",
 	"bin": {
