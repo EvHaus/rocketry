@@ -46,7 +46,6 @@ class Rocketry {
 	constructor (config: ConfigType, program: Command) {
 		this.config = config;
 		this.program = program;
-		this.run();
 	}
 
 	// Ask the user for the password to unlock their private SSH key

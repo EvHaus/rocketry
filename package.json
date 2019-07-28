@@ -24,6 +24,7 @@
 		"lint": "yarn packagelint && yarn eslint",
 		"packagelint": "prettier-package-json --use-tabs --write ./package.json",
 		"prepare": "yarn build",
+		"release": "yarn test && git push --follow-tags origin master && npm publish && npm version",
 		"start": "babel-node ./src run -D example --debug",
 		"test": "yarn flow && yarn lint && yarn jest"
 	},
@@ -45,8 +46,8 @@
 		"@babel/plugin-proposal-class-properties": "^7.5.5",
 		"@babel/preset-env": "^7.5.5",
 		"@babel/preset-flow": "^7.0.0",
-		"eslint-config-globex": "^2.1.0",
-		"flow-bin": "^0.103.0",
+		"eslint-config-globex": "^2.1.1",
+		"flow-bin": "^0.104.0",
 		"flow-typed": "^2.6.0",
 		"jest": "^24.8.0",
 		"prettier-package-json": "^2.1.0"

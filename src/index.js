@@ -70,7 +70,10 @@ explorer.search(program.dir)
 		program
 			.command('run')
 			.description('Perform a production deployment')
-			.action((): any => new Rocketry(config, program));
+			.action(() => {
+				const r = new Rocketry(config, program);
+				r.run();
+			});
 
 		program
 			.command('version')
