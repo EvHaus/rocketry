@@ -14,4 +14,4 @@ notifications:
     recipients:
       - ev@haus.gg
 script:
-  - yarn test
+  - yarn test:ci
