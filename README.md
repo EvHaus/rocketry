@@ -3,14 +3,16 @@
 <h1>rocketry</h1>
 
 <a href="https://www.joypixels.com/emoji/1f680">
-  <img alt="deploy" src="logo.png" width="128" />
+  <img alt="rocketry" src="logo.png" width="128" />
 </a>
 
 <p><em>Simple deployment automation & continuous delivery for Node.js projects.</em></p>
 
-<a href="https://www.npmjs.com/package/@globexdesigns/deploy"><img alt="NPM Status" src="https://img.shields.io/npm/v/@globexdesigns/deploy.svg?style=flat"></a>
-<a href="https://www.npmtrends.com/@globexdesigns/deploy"><img alt="NPM Download Stats" src="https://img.shields.io/npm/dm/@globexdesigns/deploy.svg?style=flat-square" /></a>
-<a href="https://github.com/EvHaus/deploy/blob/master/LICENSE"><img alt="NPM Download Stats" src="https://img.shields.io/npm/l/@globexdesigns/deploy.svg?style=flat-square" /></a>
+<a href="https://www.npmjs.com/package/rocketry"><img alt="NPM Status" src="https://img.shields.io/npm/v/rocketry"></a>
+<a href="https://www.npmtrends.com/rocketry"><img alt="NPM Download Stats" src="https://img.shields.io/npm/dw/rocketry" /></a>
+<a href="https://github.com/EvHaus/rocketry/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/github/license/evhaus/rocketry" /></a>
+<a href="https://travis-ci.org/EvHaus/rocketry"><img alt="Ci Build" src="https://img.shields.io/travis/com/evhaus/rocketry" /></a>
+<a href="https://coveralls.io/github/EvHaus/rocketry?branch=master"><img alt="Coverage Status" src="https://coveralls.io/repos/github/EvHaus/rocketry/badge.svg?branch=master" /></a>
 
 </div><hr />
 
