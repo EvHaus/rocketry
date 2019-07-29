@@ -26,7 +26,8 @@
 		"prepare": "yarn build",
 		"release": "yarn test && git push --follow-tags origin master && npm publish && npm version",
 		"start": "babel-node ./src run -D example --debug",
-		"test": "yarn flow && yarn lint && yarn jest"
+		"test": "yarn flow && yarn lint && yarn jest --coverage",
+		"test:ci": "yarn flow && yarn lint && yarn jest --coverage --coverageReporters=text-lcov | coveralls"
 	},
 	"dependencies": {
 		"@hapi/joi": "^15.1.0",
@@ -46,6 +47,7 @@
 		"@babel/plugin-proposal-class-properties": "^7.5.5",
 		"@babel/preset-env": "^7.5.5",
 		"@babel/preset-flow": "^7.0.0",
+		"coveralls": "^3.0.5",
 		"eslint-config-globex": "^2.1.1",
 		"flow-bin": "^0.104.0",
 		"flow-typed": "^2.6.0",
