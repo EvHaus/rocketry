@@ -1,4 +1,7 @@
+/* eslint-disable no-process-env */
+
 import chalk from 'chalk';
+import {nodeSSHConnect} from 'node-ssh';
 import program from 'commander';
 import Rocketry from './Rocketry';
 
@@ -24,15 +27,36 @@ describe('Rocketry', () => {
 	});
 
 	describe('connectToServer', () => {
-		it('should return a Promise', async () => {
-			let error;
+		it('should return a Promise', () => {
 			const r = new Rocketry(config, program);
-			try {
-				await r.connectToServer();
-			} catch (err) {
-				error = err.message;
-			}
-			expect(error).toEqual('Invalid username');
+			expect(r.connectToServer() instanceof Promise).toEqual(true);
+		});
+
+		it('should attempt connection via SSH key by default', async () => {
+			const r = new Rocketry(config, program);
+			await r.connectToServer();
+
+			expect(nodeSSHConnect).toHaveBeenCalledWith({
+				host: '1.2.3.4',
+				passphase: undefined,
+				privateKey: undefined,
+				username: undefined,
+			});
+		});
+
+		it('should connect via password (base64 encoded) when ROCKETRY_PW env variable is provided', async () => {
+			process.env.ROCKETRY_PW = Buffer.from('some_password').toString('base64');
+
+			const r = new Rocketry(config, program);
+			await r.connectToServer();
+
+			expect(nodeSSHConnect).toHaveBeenCalledWith({
+				host: '1.2.3.4',
+				password: 'some_password',
+				username: undefined,
+			});
+
+			delete process.env.ROCKETRY_PW;
 		});
 	});
 
