@@ -6,7 +6,7 @@
 	"homepage": "https://github.com/EvHaus/rocketry#readme",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/EvHaus/rocketry.git"
+		"url": "git@github.com:EvHaus/rocketry.git"
 	},
 	"bugs": {
 		"url": "https://github.com/EvHaus/rocketry/issues"
@@ -21,6 +21,7 @@
 		"flow": "flow",
 		"flow-typed:update": "rm -rf flow-typed && flow-typed install --ignoreDeps dev",
 		"jest": "jest",
+		"jest:coverage": "jest --coverage",
 		"lint": "yarn packagelint && yarn eslint",
 		"packagelint": "prettier-package-json --use-tabs --write ./package.json",
 		"prepare": "yarn build",
