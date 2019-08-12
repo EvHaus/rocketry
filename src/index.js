@@ -30,7 +30,7 @@ const configSchema = joi.object().keys({
 	name: joi.string(),
 	private_key_path: joi.string()
 		// eslint-disable-next-line no-process-env
-		.default(path.resolve(process.env.HOME, '.ssh', 'id_rsa'), 'Defaults to ~/.ssh/id_rsa')
+		.default(path.resolve(process.env.HOME || '~', '.ssh', 'id_rsa'), 'Defaults to ~/.ssh/id_rsa')
 		.error(new Error(`The 'private_key_path' configuration value must be a string and cannot be empty`)),
 	sources: joi.array()
 		.items(joi.string())
@@ -53,8 +53,9 @@ export const onConfigLoad = ({
 	config: ConfigType,
 	filepath: string,
 	isEmpty: boolean,
-}): {
-
+}): ?{
+	config: ConfigType,
+	program: any,
 } => {
 	if (isEmpty) return console.error(chalk.red(
 		`Configuration file ${filepath} is empty. Can't proceed.`
@@ -63,10 +64,13 @@ export const onConfigLoad = ({
 	// Validate configuration
 	const parsedConfig = joi.validate(config, configSchema);
 
-	if (parsedConfig.error) return console.error(chalk.red(
-		`You have an error in your '${filepath}' configuration file:\n` +
-		`${parsedConfig.error.message}.`
-	));
+	if (parsedConfig.error) {
+		console.error(chalk.red(
+			`You have an error in your '${filepath}' configuration file:\n` +
+			`${parsedConfig.error.message}.`
+		));
+		return undefined;
+	}
 
 	program
 		.command('run')
