@@ -1,5 +1,5 @@
-// flow-typed signature: db5b2cdde8db39d47e27cc8ab84f89bf
-// flow-typed version: d662d43161/chalk_v2.x.x/flow_>=v0.25.x
+// flow-typed signature: 8af4d93597d645140f12c00de2a323bc
+// flow-typed version: c6154227d1/chalk_v2.x.x/flow_>=v0.104.x
 
 // From: https://github.com/chalk/chalk/blob/master/index.js.flow
 
@@ -10,7 +10,8 @@ declare module "chalk" {
     None: 0,
     Basic: 1,
     Ansi256: 2,
-    TrueColor: 3
+    TrueColor: 3,
+    ...
   }>;
 
   declare type ChalkOptions = {|

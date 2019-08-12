@@ -1,5 +1,5 @@
-// flow-typed signature: 7c09aef8ac07163d6ef9e3f50c6bc35c
-// flow-typed version: a12a42a747/glob_v7.1.x/flow_>=v0.42.x
+// flow-typed signature: 3ef3befc3c68e2aae85e7f9b5319f077
+// flow-typed version: c6154227d1/glob_v7.1.x/flow_>=v0.104.x
 
 declare module "glob" {
   declare type MinimatchOptions = {|
@@ -26,14 +26,10 @@ declare module "glob" {
     stat?: boolean,
     silent?: boolean,
     strict?: boolean,
-    cache?: {
-      [path: string]: boolean | "DIR" | "FILE" | $ReadOnlyArray<string>
-    },
-    statCache?: {
-      [path: string]: boolean | { isDirectory(): boolean } | void
-    },
-    symlinks?: { [path: string]: boolean | void },
-    realpathCache?: { [path: string]: string },
+    cache?: { [path: string]: boolean | "DIR" | "FILE" | $ReadOnlyArray<string>, ... },
+    statCache?: { [path: string]: boolean | { isDirectory(): boolean, ... } | void, ... },
+    symlinks?: { [path: string]: boolean | void, ... },
+    realpathCache?: { [path: string]: string, ... },
     sync?: boolean,
     nounique?: boolean,
     nodir?: boolean,
@@ -55,17 +51,13 @@ declare module "glob" {
     constructor(pattern: string, callback: CallBack): this;
     constructor(pattern: string, options: Options, callback: CallBack): this;
 
-    minimatch: {};
+    minimatch: {...};
     options: Options;
     aborted: boolean;
-    cache: {
-      [path: string]: boolean | "DIR" | "FILE" | $ReadOnlyArray<string>
-    };
-    statCache: {
-      [path: string]: boolean | { isDirectory(): boolean } | void
-    };
-    symlinks: { [path: string]: boolean | void };
-    realpathCache: { [path: string]: string };
+    cache: { [path: string]: boolean | "DIR" | "FILE" | $ReadOnlyArray<string>, ... };
+    statCache: { [path: string]: boolean | { isDirectory(): boolean, ... } | void, ... };
+    symlinks: { [path: string]: boolean | void, ... };
+    realpathCache: { [path: string]: string, ... };
     found: Array<string>;
 
     pause(): void;
