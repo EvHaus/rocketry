@@ -5,6 +5,7 @@ import chalk from 'chalk';
 import {type ConfigType} from './types/config';
 import cosmiconfig from 'cosmiconfig';
 import joi from '@hapi/joi';
+import path from 'path';
 import pkg from '../package';
 import program from 'commander';
 import Rocketry from './Rocketry';
@@ -28,6 +29,8 @@ const configSchema = joi.object().keys({
 		.error(new Error(`The 'host' configuration value must be a valid IP and cannot be empty`)),
 	name: joi.string(),
 	private_key_path: joi.string()
+		// eslint-disable-next-line no-process-env
+		.default(path.resolve(process.env.HOME, '.ssh', 'id_rsa'), 'Defaults to ~/.ssh/id_rsa')
 		.error(new Error(`The 'private_key_path' configuration value must be a string and cannot be empty`)),
 	sources: joi.array()
 		.items(joi.string())
@@ -37,7 +40,6 @@ const configSchema = joi.object().keys({
 		.error(new Error(`The 'target_dir' configuration value must be a string and cannot be empty`)),
 	user: joi.string()
 		.default('root', 'Defaults to "root" user')
-		.required()
 		.error(new Error(`The 'user' configuration value must be a string and cannot be empty`)),
 });
 
@@ -51,24 +53,26 @@ export const onConfigLoad = ({
 	config: ConfigType,
 	filepath: string,
 	isEmpty: boolean,
-}): any => {
+}): {
+
+} => {
 	if (isEmpty) return console.error(chalk.red(
 		`Configuration file ${filepath} is empty. Can't proceed.`
 	));
 
 	// Validate configuration
-	const result = joi.validate(config, configSchema);
+	const parsedConfig = joi.validate(config, configSchema);
 
-	if (result.error) return console.error(chalk.red(
+	if (parsedConfig.error) return console.error(chalk.red(
 		`You have an error in your '${filepath}' configuration file:\n` +
-		`${result.error.message}.`
+		`${parsedConfig.error.message}.`
 	));
 
 	program
 		.command('run')
 		.description('Perform a production deployment')
 		.action(() => {
-			const r = new Rocketry(config, program);
+			const r = new Rocketry(parsedConfig.value, program);
 			r.run();
 		});
 
@@ -89,7 +93,10 @@ export const onConfigLoad = ({
 		console.error(chalk.red(`No commands specified. Try 'rocketry run' instead.`));
 	}
 
-	return program.parse(process.argv);
+	return {
+		config: parsedConfig.value,
+		program: program.parse(process.argv),
+	};
 };
 
 export const onConfigLoadError = (error: Error) => {

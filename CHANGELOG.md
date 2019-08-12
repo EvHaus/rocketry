@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
--
+- Fixed an issue preventing config defaults for `user` or `private_key_path` from being set correctly
 
 ----
 

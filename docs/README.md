@@ -142,4 +142,4 @@ The following configuration keys are supported:
 | Key                | Type     | Default Value                  | Description                                                                                                                           |
 |:-------------------|:---------|:-------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------|
 | `name`             | `string` | Your `package.json:name` value | _The name of your application (used in the `pm2` configuration). By default, the "name" value from your "package.json" will be used._ |
-| `private_key_path` | `string` |                                | _The path to your local private SSH key file which will be used to authenticate with the server._                                     |
+| `private_key_path` | `string` | `~/.ssh/id_rsa`                | _The path to your local private SSH key file which will be used to authenticate with the server._                                     |

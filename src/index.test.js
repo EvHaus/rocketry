@@ -56,13 +56,34 @@ describe('index', () => {
 		);
 	});
 
+	it('should set the default `private_key_path` to `~/.ssh/id_rsa`', () => {
+		spyOn(console, 'error');
+		const {onConfigLoad} = require('./index');
+		const config = {
+			host: '1.1.1.1',
+			target_dir: '/var/www/html',
+		};
+		const result = onConfigLoad({config, filepath: 'filepath', isEmpty: false});
+		expect(result.config.private_key_path).toContain('.ssh/id_rsa');
+	});
+
+	it('should set the default `user` to `root`', () => {
+		spyOn(console, 'error');
+		const {onConfigLoad} = require('./index');
+		const config = {
+			host: '1.1.1.1',
+			target_dir: '/var/www/html',
+		};
+		const result = onConfigLoad({config, filepath: 'filepath', isEmpty: false});
+		expect(result.config.user).toContain('root');
+	});
+
 	it('should expect a valid command if given a valid configuration file', () => {
 		const consoleSpy = spyOn(console, 'error');
 		const {onConfigLoad} = require('./index');
 		const config = {
 			host: '24.1.2.3',
 			target_dir: '/var/www/',
-			user: 'user',
 		};
 		onConfigLoad({config, filepath: 'filepath', isEmpty: false});
 		expect(consoleSpy).toHaveBeenCalledWith(
