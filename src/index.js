@@ -4,7 +4,7 @@
 import chalk from 'chalk';
 import {type ConfigType} from './types/config';
 import cosmiconfig from 'cosmiconfig';
-import joi from '@hapi/joi';
+import Joi from '@hapi/joi';
 import path from 'path';
 import pkg from '../package';
 import program from 'commander';
@@ -22,24 +22,24 @@ program
 	.parse(process.argv);
 
 // Define config schema
-const configSchema = joi.object().keys({
-	host: joi.string()
+const configSchema = Joi.object({
+	host: Joi.string()
 		.ip()
 		.required()
 		.error(new Error(`The 'host' configuration value must be a valid IP and cannot be empty`)),
-	name: joi.string(),
-	private_key_path: joi.string()
+	name: Joi.string(),
+	private_key_path: Joi.string()
 		// eslint-disable-next-line no-process-env
-		.default(path.resolve(process.env.HOME || '~', '.ssh', 'id_rsa'), 'Defaults to ~/.ssh/id_rsa')
+		.default(path.resolve(process.env.HOME || '~', '.ssh', 'id_rsa'))
 		.error(new Error(`The 'private_key_path' configuration value must be a string and cannot be empty`)),
-	sources: joi.array()
-		.items(joi.string())
+	sources: Joi.array()
+		.items(Joi.string())
 		.error(new Error(`The 'sources' configuration value must be an array of file paths and cannot be empty`)),
-	target_dir: joi.string()
+	target_dir: Joi.string()
 		.required()
 		.error(new Error(`The 'target_dir' configuration value must be a string and cannot be empty`)),
-	user: joi.string()
-		.default('root', 'Defaults to "root" user')
+	user: Joi.string()
+		.default('root')
 		.error(new Error(`The 'user' configuration value must be a string and cannot be empty`)),
 });
 
@@ -62,7 +62,7 @@ export const onConfigLoad = ({
 	));
 
 	// Validate configuration
-	const parsedConfig = joi.validate(config, configSchema);
+	const parsedConfig = configSchema.validate(config);
 
 	if (parsedConfig.error) {
 		console.error(chalk.red(
