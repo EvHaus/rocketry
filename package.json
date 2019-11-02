@@ -35,7 +35,7 @@
 		"archiver": "^3.1.1",
 		"chalk": "^2.4.2",
 		"commander": "^4.0.0",
-		"cosmiconfig": "^5.2.1",
+		"cosmiconfig": "^6.0.0",
 		"glob": "^7.1.4",
 		"inquirer": "^7.0.0",
 		"node-ssh": "^6.0.0",
@@ -50,7 +50,7 @@
 		"@babel/preset-flow": "^7.0.0",
 		"coveralls": "^3.0.7",
 		"eslint-config-globex": "^2.5.1",
-		"flow-bin": "^0.111.0",
+		"flow-bin": "^0.111.1",
 		"flow-typed": "^2.6.2",
 		"jest": "^24.9.0",
 		"prettier-package-json": "^2.1.0"
