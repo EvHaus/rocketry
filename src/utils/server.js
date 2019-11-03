@@ -234,7 +234,7 @@ export const restartServices = async function (
 
 	const cmds = [
 		needsInitialStart ?
-			`cd ${config.target_dir} && pm2 start npm --log-date-format 'DD-MM HH:mm:ss.SSS' --name "${name}" -- start` :
+			`cd ${config.target_dir} && pm2 start npm --log-date-format 'YYYY-MM-DD HH:mm:ss.SSS' --name "${name}" -- start` :
 			`pm2 restart ${name}`,
 	];
 
