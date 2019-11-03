@@ -1,4 +1,4 @@
-const cosmiconfig = jest.fn().mockImplementation(() => {
+export const cosmiconfig = jest.fn().mockImplementation(() => {
 	return {
 		search: jest.fn(() => Promise.resolve({
 			config: {
@@ -13,4 +13,4 @@ const cosmiconfig = jest.fn().mockImplementation(() => {
 	};
 });
 
-export default cosmiconfig;
+export default null;

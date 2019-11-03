@@ -3,7 +3,7 @@
 
 import chalk from 'chalk';
 import {type ConfigType} from './types/config';
-import cosmiconfig from 'cosmiconfig';
+import {cosmiconfig} from 'cosmiconfig';
 import Joi from '@hapi/joi';
 import path from 'path';
 import pkg from '../package';
