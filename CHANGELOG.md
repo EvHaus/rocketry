@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.7.0] - Unreleased
 
+### Added
+
+- `pm2` now shows full timestamps in logs
+
 ### Fixed
 
 - Fixed an issue preventing config defaults for `user` or `private_key_path` from being set correctly
