@@ -50,7 +50,7 @@
 		"@babel/preset-flow": "^7.0.0",
 		"coveralls": "^3.0.7",
 		"eslint-config-globex": "^2.5.1",
-		"flow-bin": "^0.112.0",
+		"flow-bin": "^0.113.0",
 		"flow-typed": "^2.6.2",
 		"jest": "^24.9.0",
 		"prettier-package-json": "^2.1.0"
