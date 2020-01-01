@@ -1,6 +1,5 @@
 {
 	host: '138.68.241.10',
-	private_key_path: '/home/globex/.ssh/id_rsa',
 	sources: [
 		'directory',
 		'package.json',
