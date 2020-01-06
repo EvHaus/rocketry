@@ -31,7 +31,7 @@
 		"test:ci": "yarn flow && yarn lint && yarn jest --coverage --coverageReporters=text-lcov | coveralls"
 	},
 	"dependencies": {
-		"@hapi/joi": "^16.1.7",
+		"@hapi/joi": "^17.0.0",
 		"archiver": "^3.1.1",
 		"chalk": "^3.0.0",
 		"commander": "^4.0.0",
