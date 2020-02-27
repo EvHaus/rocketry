@@ -4495,9 +4495,9 @@ node-releases@^1.1.47:
     semver "^6.3.0"
 
 node-ssh@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/node-ssh/-/node-ssh-7.0.0.tgz#f5a34f3d84a68bf4c646d55cce07dc11f2f1c22a"
-  integrity sha512-LwdGalFACK+DCVI1+wkehR/a8uIkmAn0npW43f8U6XhH20112a/WAXv3oQay7IK2YHY1J6r5JT2MEHhjyQxKIA==
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/node-ssh/-/node-ssh-7.0.1.tgz#f677a6f410e737bb63724a2260202f7af26f5b37"
+  integrity sha512-pqXxQl1BUf8GKVJnlEPW0+I3B2YMA6MpooRYHXHNmQwEuNU7uDpoR7VkLgUmNXZ2z+952g5N+gjJ4khYgCBvrA==
   dependencies:
     p-map "^3.0.0"
     sb-promisify "^2.0.1"
