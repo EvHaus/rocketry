@@ -4511,10 +4511,10 @@ node-releases@^1.1.50:
   dependencies:
     semver "^6.3.0"
 
-node-ssh@^7.0.0:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/node-ssh/-/node-ssh-7.0.1.tgz#f677a6f410e737bb63724a2260202f7af26f5b37"
-  integrity sha512-pqXxQl1BUf8GKVJnlEPW0+I3B2YMA6MpooRYHXHNmQwEuNU7uDpoR7VkLgUmNXZ2z+952g5N+gjJ4khYgCBvrA==
+node-ssh@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/node-ssh/-/node-ssh-8.0.0.tgz#e5b274f477983aa4b40b24a2ab98b19f51aefec3"
+  integrity sha512-xqX3ia49AYDcL02KUqk+rtdqTSbLcca+R2MasiLGuF55NBH1BYvw61iFXSMR898vA8vYMTQDSVRvTLx4Lior5Q==
   dependencies:
     p-map "^3.0.0"
     sb-promisify "^2.0.1"
