@@ -63,6 +63,12 @@ How does this project differ from similar existing public projects?
 
 Contributions for bug fixes and new features are welcome via Pull Requests.
 
+### Publishing a New Version
+
+- Set the version you want in `package.json`
+- Set the same version in `CHANGELOG.md` and put today's date and changes
+- Run `npm run release`
+
 ### Simulate a Deployment
 
 To simulate a deployment (to test the script), clone this project and run:
