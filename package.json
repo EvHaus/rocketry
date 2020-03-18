@@ -25,7 +25,7 @@
 		"lint": "yarn packagelint && yarn eslint",
 		"packagelint": "prettier-package-json --use-tabs --write ./package.json",
 		"prepare": "yarn build",
-		"release": "yarn test && git push --follow-tags origin master && npm publish && npm version",
+		"release": "yarn test && git push --follow-tags origin master && npm publish && npm version patch",
 		"start": "babel-node ./src run -D example --debug",
 		"test": "yarn flow && yarn lint && yarn jest --coverage",
 		"test:ci": "yarn flow && yarn lint && yarn jest --coverage --coverageReporters=text-lcov | coveralls"
