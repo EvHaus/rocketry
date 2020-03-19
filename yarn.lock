@@ -2889,9 +2889,9 @@ flow-bin@^0.120.1:
   integrity sha512-KgE+d+rKzdXzhweYVJty1QIOOZTTbtnXZf+4SLnmArLvmdfeLreQOZpeLbtq5h79m7HhDzX/HkUkoyu/fmSC2A==
 
 flow-typed@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/flow-typed/-/flow-typed-3.0.0.tgz#73c0d2a7bb8018dca3ea29c5ccfa34ae82358dc7"
-  integrity sha512-fYCSQHW/qX3bMrXzv/GMEVI/dt3h61nYIyMabrqU/ptHSOPM9V5CIubQ9qDa/wc3Oeyp4+jUepQ/Ywo1sCoG7g==
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/flow-typed/-/flow-typed-3.1.0.tgz#706992dd71f7481e39aadb5db163d339d16b500c"
+  integrity sha512-y9AbG5/ZQDyCs2ROmJqYKUCornCPOLJQL06TE1TwNCGTzKYDqLgkYeINCthd9EL8FyzWkTLI0mOSL82dU20hJA==
   dependencies:
     "@octokit/rest" "^16.43.1"
     colors "^1.4.0"
@@ -5326,14 +5326,7 @@ rimraf@2.6.3:
   dependencies:
     glob "^7.1.3"
 
-rimraf@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-3.0.0.tgz#614176d4b3010b75e5c390eb0ee96f6dc0cebb9b"
-  integrity sha512-NDGVxTsjqfunkds7CqsOiEnxln4Bo7Nddl3XhS4pXg5OzwkLqJ971ZVAAnB+DDLnF76N+VnDEiBHaVV8I06SUg==
-  dependencies:
-    glob "^7.1.3"
-
-rimraf@^3.0.2:
+rimraf@^3.0.0, rimraf@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-3.0.2.tgz#f1a5402ba6220ad52cc1282bac1ae3aa49fd061a"
   integrity sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==
