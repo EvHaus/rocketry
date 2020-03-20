@@ -21,14 +21,14 @@
 		"flow": "flow",
 		"flow-typed:update": "rm -rf flow-typed && flow-typed install --ignoreDeps dev",
 		"jest": "jest",
-		"jest:coverage": "jest --coverage",
+		"jest:coverage": "jest --coverage --coverageReporters=text-lcov",
 		"lint": "yarn packagelint && yarn eslint",
 		"packagelint": "prettier-package-json --use-tabs --write ./package.json",
 		"prepare": "yarn build",
 		"release": "yarn test && git push --follow-tags origin master && npm publish && npm version patch",
 		"start": "babel-node ./src run -D example --debug",
-		"test": "yarn flow && yarn lint && yarn jest --coverage",
-		"test:ci": "yarn flow && yarn lint && yarn jest --coverage --coverageReporters=text-lcov | coveralls"
+		"test": "yarn flow && yarn lint && yarn jest",
+		"test:ci": "yarn flow && yarn lint && yarn jest:coverage"
 	},
 	"dependencies": {
 		"@hapi/joi": "^17.0.0",
@@ -42,13 +42,12 @@
 		"ora": "^4.0.2"
 	},
 	"devDependencies": {
-		"@babel/cli": "^7.5.5",
-		"@babel/core": "^7.6.4",
-		"@babel/node": "^7.6.3",
-		"@babel/plugin-proposal-class-properties": "^7.5.5",
-		"@babel/preset-env": "^7.5.5",
-		"@babel/preset-flow": "^7.0.0",
-		"coveralls": "^3.0.7",
+		"@babel/cli": "^7.8.4",
+		"@babel/core": "^7.9.0",
+		"@babel/node": "^7.8.7",
+		"@babel/plugin-proposal-class-properties": "^7.8.3",
+		"@babel/preset-env": "^7.9.0",
+		"@babel/preset-flow": "^7.9.0",
 		"eslint-config-globex": "^2.5.1",
 		"flow-bin": "^0.121.0",
 		"flow-typed": "^3.0.0",
