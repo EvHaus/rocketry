@@ -21,7 +21,7 @@
 		"flow": "flow",
 		"flow-typed:update": "rm -rf flow-typed && flow-typed install --ignoreDeps dev",
 		"jest": "jest",
-		"jest:coverage": "jest --coverage --coverageReporters=text-lcov",
+		"jest:coverage": "jest --coverage",
 		"lint": "yarn packagelint && yarn eslint",
 		"packagelint": "prettier-package-json --use-tabs --write ./package.json",
 		"prepare": "yarn build",
