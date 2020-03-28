@@ -5,32 +5,32 @@ import program from 'commander';
 
 describe('index', () => {
 	it('should setup commander with the right version', () => {
-		spyOn(console, 'error');
+		jest.spyOn(console, 'error');
 		require('./index');
-		expect(program.version).toHaveBeenCalledWith(jasmine.any(String));
+		expect(program.version).toHaveBeenCalledWith(expect.any(String));
 	});
 
 	it('should register the "--dir" option', () => {
-		spyOn(console, 'error');
+		jest.spyOn(console, 'error');
 		require('./index');
 		expect(program.option).toHaveBeenCalledWith(
 			'-D, --dir <path>',
-			jasmine.any(String),
-			jasmine.any(String)
+			expect.any(String),
+			expect.any(String)
 		);
 	});
 
 	it('should register the "--debug" option', () => {
-		spyOn(console, 'error');
+		jest.spyOn(console, 'error');
 		require('./index');
 		expect(program.option).toHaveBeenCalledWith(
 			'-d, --debug',
-			jasmine.any(String)
+			expect.any(String)
 		);
 	});
 
 	it('should handle unexpected config load errors gracefully', () => {
-		const consoleSpy = spyOn(console, 'error');
+		const consoleSpy = jest.spyOn(console, 'error');
 		const {onConfigLoadError} = require('./index');
 		onConfigLoadError(new Error('failure'));
 		expect(consoleSpy).toHaveBeenCalledWith(
@@ -39,7 +39,7 @@ describe('index', () => {
 	});
 
 	it('should handle empty configs gracefully', () => {
-		const consoleSpy = spyOn(console, 'error');
+		const consoleSpy = jest.spyOn(console, 'error');
 		const {onConfigLoad} = require('./index');
 		onConfigLoad({config: null, filepath: 'filepath', isEmpty: true});
 		expect(consoleSpy).toHaveBeenCalledWith(
@@ -48,7 +48,7 @@ describe('index', () => {
 	});
 
 	it('should handle config validation errors gracefully', () => {
-		const consoleSpy = spyOn(console, 'error');
+		const consoleSpy = jest.spyOn(console, 'error');
 		const {onConfigLoad} = require('./index');
 		onConfigLoad({config: {}, filepath: 'filepath', isEmpty: false});
 		expect(consoleSpy).toHaveBeenCalledWith(
@@ -57,7 +57,7 @@ describe('index', () => {
 	});
 
 	it('should set the default `private_key_path` to `~/.ssh/id_rsa`', () => {
-		spyOn(console, 'error');
+		jest.spyOn(console, 'error');
 		const {onConfigLoad} = require('./index');
 		const config = {
 			host: '1.1.1.1',
@@ -68,7 +68,7 @@ describe('index', () => {
 	});
 
 	it('should set the default `user` to `root`', () => {
-		spyOn(console, 'error');
+		jest.spyOn(console, 'error');
 		const {onConfigLoad} = require('./index');
 		const config = {
 			host: '1.1.1.1',
@@ -79,7 +79,7 @@ describe('index', () => {
 	});
 
 	it('should expect a valid command if given a valid configuration file', () => {
-		const consoleSpy = spyOn(console, 'error');
+		const consoleSpy = jest.spyOn(console, 'error');
 		const {onConfigLoad} = require('./index');
 		const config = {
 			host: '24.1.2.3',

@@ -5,7 +5,7 @@ import {nodeSSHConnect} from 'node-ssh';
 import program from 'commander';
 import Rocketry from './Rocketry';
 
-describe('Rocketry', () => {
+describe('rocketry', () => {
 	const config = {host: '1.2.3.4'};
 
 	it('should be a class', () => {
@@ -62,7 +62,7 @@ describe('Rocketry', () => {
 
 	describe('debug', () => {
 		it('should print a debug message', () => {
-			const consoleSpy = spyOn(console, 'debug');
+			const consoleSpy = jest.spyOn(console, 'debug');
 			const msg = 'Some message';
 			const r = new Rocketry(config, {...program, debug: true});
 			r.debug(msg);

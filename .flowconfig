@@ -8,5 +8,11 @@ flow-typed/npm
 
 [options]
 
+# Objects are exact by default
+exact_by_default=true
+
+# Enable warnings
+include_warnings=true
+
 # Allow us to bypass Flow warnings via a comment
 suppress_comment= \\(.\\|\n\\)*\\flow-disable-next-line

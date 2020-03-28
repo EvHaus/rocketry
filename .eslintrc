@@ -1,12 +1,13 @@
 {
-    "extends": "eslint-config-globex",
+    "extends": [
+      "eslint-config-globex",
+      "eslint-config-globex/rules/flowtype",
+      "eslint-config-globex/rules/jest",
+    ],
     "rules": {
+        "flowtype/require-exact-type": "off",
+        "flowtype/spread-exact-type": "off",
         "no-console": "off",
         "promise/no-native": "off"
-    },
-    settings: {
-        react: {
-            version: '16.0.0',
-        },
-    },
+    }
 }

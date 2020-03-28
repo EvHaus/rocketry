@@ -350,13 +350,13 @@ export const uploadZipToServer = async function ({
 	localZipPath,
 	program,
 	server,
-}: {|
+}: {
 	config: ConfigType,
 	debug: (msg: string) => any,
 	localZipPath: string,
 	program: Command,
 	server: ServerType,
-|}) {
+}) {
 	const spinner = ora(`Uploading ${chalk.yellow(localZipPath)} to server...`);
 	if (!program.debug) spinner.start();
 

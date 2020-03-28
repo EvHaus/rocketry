@@ -23,13 +23,13 @@ import inquirer from 'inquirer';
 import nodeSSH from 'node-ssh';
 import ora from 'ora';
 
-type SshConnectConfigType = {|
+type SshConnectConfigType = {
 	host: string,
 	passphrase?: ?string,
 	password?: ?string,
 	privateKey?: ?string,
 	username: string,
-|};
+};
 
 // eslint-disable-next-line no-process-env
 const ROCKETRY_PW = (): ?string => process.env.ROCKETRY_PW;
