@@ -5,8 +5,6 @@
       "eslint-config-globex/rules/jest",
     ],
     "rules": {
-        "flowtype/require-exact-type": "off",
-        "flowtype/spread-exact-type": "off",
         "no-console": "off",
         "promise/no-native": "off"
     }
