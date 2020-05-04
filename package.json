@@ -38,7 +38,7 @@
 		"cosmiconfig": "^6.0.0",
 		"glob": "^7.1.4",
 		"inquirer": "^7.0.0",
-		"node-ssh": "^8.0.0",
+		"node-ssh": "^9.0.0",
 		"ora": "^4.0.2"
 	},
 	"devDependencies": {
