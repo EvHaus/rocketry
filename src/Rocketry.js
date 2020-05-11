@@ -94,9 +94,10 @@ class Rocketry {
 				if (password && err && err.message.includes('All configured authentication methods failed')) {
 					spinner.fail(
 						`Unable to connect to SSH server with ROCKETRY_PW password. ` +
-						`You either provided an invalid password or ` +
-						`you need to set PasswordAuthentication to 'yes' in ` +
-						`your server's /etc/ssh/sshd_config config file.`
+						`You either provided an invalid password (remember that passwords ` +
+						`have to be encoded with base64) or you need to set ` +
+						`PasswordAuthentication to 'yes' in your server's ` +
+						`/etc/ssh/sshd_config config file.`
 					);
 					throw err;
 				}
