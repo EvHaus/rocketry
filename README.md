@@ -65,7 +65,7 @@ Contributions for bug fixes and new features are welcome via Pull Requests.
 
 ### Publishing a New Version
 
-- Set the version you want in `package.json`
+- Set the version you want in `package.json` (or leave it as is)
 - Set the same version in `CHANGELOG.md` and put today's date and changes
 - Run `npm run release`
 
