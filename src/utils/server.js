@@ -363,7 +363,14 @@ export const uploadZipToServer = async function ({
 	const {target_dir} = config;
 	const target = `${target_dir}/rocketry.zip`;
 
-	await server.putFile(localZipPath, target);
+	try {
+		await server.putFile(localZipPath, target);
+	} catch (error) {
+		spinner.fail(
+			`${chalk.red('[FAILURE]')} Failed to upload ZIP package to target server.`
+		);
+		throw error;
+	}
 
 	// Unzip the package once its on the server
 	spinner.text = (
@@ -378,7 +385,7 @@ export const uploadZipToServer = async function ({
 		], debug, server);
 	} catch (error) {
 		spinner.fail(
-			`${chalk.red('[FAILURE]')} Failed to upload ZIP package to target server.`
+			`${chalk.red('[FAILURE]')} Failed to unzip uploaded package on the target server.`
 		);
 		throw error;
 	}
