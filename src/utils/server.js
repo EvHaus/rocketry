@@ -9,6 +9,7 @@ import chalk from 'chalk';
 import {type Command} from 'commander';
 import {getAppName} from './local';
 import ora from 'ora';
+import path from 'path';
 
 const NVM_INSTALL_URL = 'https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh';
 
@@ -361,10 +362,24 @@ export const uploadZipToServer = async function ({
 	if (!program.debug) spinner.start();
 
 	const {target_dir} = config;
-	const target = `${target_dir}/rocketry.zip`;
+	const target = path.join(target_dir, 'rocketry.zip');
 
 	try {
-		await server.putFile(localZipPath, target);
+		await server.putFile(localZipPath, target, undefined, {
+			// This setting is needed for some reason, otherwise some uploads will
+			// hang in the middle of the operation and timeout. I have no idea why,
+			// and there don't appear to be any issues about it on GitHub no either
+			// node-ssh, or ssh2-streams. /shrug
+			concurrency: 1,
+			step: (total_transferred: number, chunk: number, total: number) => {
+				// Show a progress bar
+				const percTransferred = Math.round(total_transferred / total * 100);
+
+				spinner.text = (
+					`Uploading ${chalk.yellow(localZipPath)} to server (${percTransferred}%)...`
+				);
+			},
+		});
 	} catch (error) {
 		spinner.fail(
 			`${chalk.red('[FAILURE]')} Failed to upload ZIP package to target server.`

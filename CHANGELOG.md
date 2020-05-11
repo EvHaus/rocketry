@@ -5,17 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.8.3] - Unreleased
+## [0.8.3] - 2020-05-10
+
+### Added
+
+- Added a progress indicator for when the ZIP file is being uploaded
 
 ### Fixed
 
-- 
+- Fixed a bug which would cause the uploaded ZIP file to hang forever on some servers
 
 ----
 
 ## [0.8.2] - 2020-05-10
 
-### Fixed
+### Added
 
 - Minor improvements to error handling and messaging
 
