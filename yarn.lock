@@ -4618,10 +4618,10 @@ node-releases@^1.1.53:
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.53.tgz#2d821bfa499ed7c5dffc5e2f28c88e78a08ee3f4"
   integrity sha512-wp8zyQVwef2hpZ/dJH7SfSrIPD6YoJz6BDQDpGEkcA0s3LpAQoxBIYmfIq6QAhC1DhwsyCgTaTTcONwX8qzCuQ==
 
-node-ssh@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/node-ssh/-/node-ssh-9.0.0.tgz#50ed464ea16d9d2c11389d0485f2a5e640f3494c"
-  integrity sha512-nWHQ5m8x8YAI2eKfxNM5j16Qc++xWRc3OXkAtfKkY/vwu7/nN28X+aU6B+ajBcOci+LtHBprSmVebmb9G87FEw==
+node-ssh@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/node-ssh/-/node-ssh-10.0.0.tgz#b5bfa16e21255d9186daeba5020e22d842a638c4"
+  integrity sha512-eVMlqkV7DM3hYKQXnxUXfXSwHfuitkvjgdPGNAJFCOjCyUZ+RFXuLrv46030x3zNZjAjYJUOA7FC9YkYcN9dHg==
   dependencies:
     make-dir "^3.1.0"
     sb-promise-queue "^2.0.0"
