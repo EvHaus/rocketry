@@ -1,4 +1,4 @@
-/* eslint-disable no-process-env */
+/* eslint-disable node/no-process-env */
 
 import chalk from 'chalk';
 import {nodeSSHConnect} from 'node-ssh';

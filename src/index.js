@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 // @flow strict
 
 import chalk from 'chalk';
@@ -29,7 +28,7 @@ const configSchema = Joi.object({
 		.error(new Error(`The 'host' configuration value must be a valid IP and cannot be empty`)),
 	name: Joi.string(),
 	private_key_path: Joi.string()
-		// eslint-disable-next-line no-process-env
+		// eslint-disable-next-line node/no-process-env
 		.default(path.resolve(process.env.HOME || '~', '.ssh', 'id_rsa'))
 		.error(new Error(`The 'private_key_path' configuration value must be a string and cannot be empty`)),
 	sources: Joi.array()

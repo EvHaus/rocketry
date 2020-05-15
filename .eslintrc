@@ -2,6 +2,7 @@
     "extends": [
       "eslint-config-globex",
       "eslint-config-globex/rules/flowtype",
+      "eslint-config-globex/rules/node",
       "eslint-config-globex/rules/jest",
     ],
     "rules": {

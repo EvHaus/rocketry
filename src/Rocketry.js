@@ -31,7 +31,7 @@ type SshConnectConfigType = {
 	username: string,
 };
 
-// eslint-disable-next-line no-process-env
+// eslint-disable-next-line node/no-process-env
 const ROCKETRY_PW = (): ?string => process.env.ROCKETRY_PW;
 
 class Rocketry {
