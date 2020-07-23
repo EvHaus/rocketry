@@ -32,7 +32,7 @@
 	},
 	"dependencies": {
 		"@hapi/joi": "^17.0.0",
-		"archiver": "^4.0.1",
+		"archiver": "^5.0.0",
 		"chalk": "^4.0.0",
 		"commander": "^5.1.0",
 		"cosmiconfig": "^6.0.0",
