@@ -11,7 +11,7 @@
 	"bugs": {
 		"url": "https://github.com/EvHaus/rocketry/issues"
 	},
-	"version": "0.8.7",
+	"version": "0.8.8",
 	"bin": {
 		"rocketry": "./bin/index.js"
 	},
