@@ -1,6 +1,6 @@
 // @flow strict
 
-import nodeSSH from 'node-ssh';
+import NodeSSH from 'node-ssh';
 
 export type ConfigType = {
 	host: string,
@@ -16,7 +16,7 @@ export type ServerCommandResponseType = {
 	cwd: ?string,
 };
 
-export type ServerType = typeof nodeSSH;
+export type ServerType = typeof NodeSSH;
 
 export type SshCommandResponseType = {
 	code: number,

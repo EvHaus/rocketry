@@ -20,7 +20,7 @@ import {
 import chalk from 'chalk';
 import {type Command} from 'commander';
 import inquirer from 'inquirer';
-import {NodeSSH} from 'node-ssh';
+import NodeSSH from 'node-ssh';
 import ora from 'ora';
 
 type SshConnectConfigType = {
