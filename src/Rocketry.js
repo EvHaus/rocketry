@@ -20,7 +20,7 @@ import {
 import chalk from 'chalk';
 import {type Command} from 'commander';
 import inquirer from 'inquirer';
-import nodeSSH from 'node-ssh';
+import {NodeSSH} from 'node-ssh';
 import ora from 'ora';
 
 type SshConnectConfigType = {
@@ -69,7 +69,7 @@ class Rocketry {
 		// Only validate private key path if we're not using a password
 		if (private_key_path && !password) validatePrivateKeyPath(private_key_path);
 
-		const client = new nodeSSH();
+		const client = new NodeSSH();
 
 		const connectConfig: SshConnectConfigType = {
 			host,
