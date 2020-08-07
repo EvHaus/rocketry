@@ -49,7 +49,7 @@
 		"@babel/preset-env": "^7.9.0",
 		"@babel/preset-flow": "^7.9.0",
 		"eslint-config-globex": "^3.1.1",
-		"flow-bin": "^0.130.0",
+		"flow-bin": "^0.131.0",
 		"flow-typed": "^3.0.0",
 		"jest": "^26.0.1",
 		"prettier-package-json": "^2.1.0"
