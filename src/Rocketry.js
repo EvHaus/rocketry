@@ -18,7 +18,7 @@ import {
 	uploadZipToServer,
 } from './utils/server';
 import chalk from 'chalk';
-import {type Command} from 'commander';
+import {Command} from 'commander';
 import inquirer from 'inquirer';
 import NodeSSH from 'node-ssh';
 import ora from 'ora';
@@ -39,11 +39,11 @@ class Rocketry {
 
 	config: ConfigType;
 
-	program: Command;
+	program: typeof Command;
 
 	server: ServerType;
 
-	constructor (config: ConfigType, program: Command) {
+	constructor (config: ConfigType, program: typeof Command) {
 		this.config = config;
 		this.program = program;
 	}

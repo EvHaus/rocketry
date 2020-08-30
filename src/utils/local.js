@@ -2,7 +2,7 @@
 
 import archiver from 'archiver';
 import chalk from 'chalk';
-import {type Command} from 'commander';
+import {Command} from 'commander';
 import {type ConfigType} from '../types/config';
 import fs from 'fs';
 import glob from 'glob';
@@ -11,14 +11,14 @@ import path from 'path';
 import {promisify} from 'util';
 
 export const cwd = function (
-	program: Command
+	program: typeof Command
 ): string {
 	return program.dir ? path.resolve(process.cwd(), program.dir) : process.cwd();
 };
 
 // Delete the deploy file
 export const deleteZipFile = function (
-	program: Command
+	program: typeof Command
 ): Promise<void> {
 	const deleteFile = promisify(fs.unlink);
 	const outputPath = getZipFilePath(program);
@@ -28,7 +28,7 @@ export const deleteZipFile = function (
 // Determines the application's name
 export const getAppName = function (
 	config: ConfigType,
-	program: Command
+	program: typeof Command
 ): string {
 	// If the config has a name - use that
 	if (config.name) return config.name;
@@ -41,7 +41,7 @@ export const getAppName = function (
 
 // Gets the path to the deployment zip file
 export const getZipFilePath = function (
-	program: Command
+	program: typeof Command
 ): string {
 	return path.join(cwd(program), 'rocketry.zip');
 };
@@ -50,7 +50,7 @@ export const getZipFilePath = function (
 export const getSources = async function (
 	config: ConfigType,
 	debug: (msg: string) => any,
-	program: Command
+	program: typeof Command
 ): Promise<Array<string>> {
 	const spinner = ora('Compiling a list of source files...');
 	if (!program.debug) spinner.start();
@@ -118,7 +118,7 @@ export const validatePrivateKeyPath = function (
 // Creates a ZIP of the current directory
 export const zipUpCurrentDirectory = function (
 	sources: Array<string>,
-	program: Command
+	program: typeof Command
 ): Promise<string> {
 	const dir = cwd(program);
 

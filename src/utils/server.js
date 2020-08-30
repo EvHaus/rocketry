@@ -6,7 +6,7 @@ import {
 	type ServerType,
 } from '../types/config';
 import chalk from 'chalk';
-import {type Command} from 'commander';
+import {Command} from 'commander';
 import {getAppName} from './local';
 import ora from 'ora';
 import path from 'path';
@@ -38,7 +38,7 @@ export const ensureTargetDirectoryExists = async function (
 
 // Installs apt package updates
 export const installAptUpdates = async function (
-	program: Command,
+	program: typeof Command,
 	debug: (msg: string) => any,
 	server: ServerType
 ) {
@@ -71,7 +71,7 @@ export const installAptUpdates = async function (
 
 // Installs node on the target server
 export const installNode = async function (
-	program: Command,
+	program: typeof Command,
 	debug: (msg: string) => any,
 	server: ServerType
 ) {
@@ -123,7 +123,7 @@ export const installNode = async function (
 export const installNpmDependencies = async function (
 	config: ConfigType,
 	debug: (msg: string) => any,
-	program: Command,
+	program: typeof Command,
 	server: ServerType
 ): Promise<boolean> {
 	const spinner = ora('Installing npm dependencies...');
@@ -148,7 +148,7 @@ export const installNpmDependencies = async function (
 
 // Installs pm2 on the target server
 export const installPm2 = async function (
-	program: Command,
+	program: typeof Command,
 	debug: (msg: string) => any,
 	server: ServerType
 ) {
@@ -183,7 +183,7 @@ export const installPm2 = async function (
 
 // Installs yarn on the target server
 export const installYarn = async function (
-	program: Command,
+	program: typeof Command,
 	debug: (msg: string) => any,
 	server: ServerType
 ) {
@@ -213,7 +213,7 @@ export const installYarn = async function (
 
 // Restart services
 export const restartServices = async function (
-	program: Command,
+	program: typeof Command,
 	config: ConfigType,
 	debug: (msg: string) => any,
 	server: ServerType
@@ -355,7 +355,7 @@ export const uploadZipToServer = async function ({
 	config: ConfigType,
 	debug: (msg: string) => any,
 	localZipPath: string,
-	program: Command,
+	program: typeof Command,
 	server: ServerType,
 }) {
 	const spinner = ora(`Uploading ${chalk.yellow(localZipPath)} to server...`);
