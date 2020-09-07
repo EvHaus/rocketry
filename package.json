@@ -48,7 +48,7 @@
 		"@babel/plugin-proposal-class-properties": "^7.8.3",
 		"@babel/preset-env": "^7.9.0",
 		"@babel/preset-flow": "^7.9.0",
-		"eslint-config-globex": "^3.1.1",
+		"eslint-config-globex": "^4.0.0",
 		"flow-bin": "^0.133.0",
 		"flow-typed": "^3.0.0",
 		"jest": "^26.0.1",
