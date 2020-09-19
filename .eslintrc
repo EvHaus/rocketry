@@ -7,7 +7,6 @@
     ],
     "rules": {
         "no-console": "off",
-        "node/shebang": "off",
-        "promise/no-native": "off"
+        "node/shebang": "off"
     }
 }

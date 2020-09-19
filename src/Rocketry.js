@@ -116,9 +116,9 @@ class Rocketry {
 			});
 	}
 
-	debug = (msg: string) => {
+	debug (msg: string) {
 		if (this.program.debug) console.debug(chalk.gray(msg));
-	};
+	}
 
 	// The main run function
 	async run (): Promise<void> {
