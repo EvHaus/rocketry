@@ -2,4 +2,11 @@ bin
 coverage
 example/rocketry.zip
 node_modules
+
+.yarn/*
+!.yarn/cache
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
 yarn-error.log
