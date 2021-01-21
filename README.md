@@ -68,7 +68,9 @@ Contributions for bug fixes and new features are welcome via Pull Requests.
 - Set the version you want in `package.json` (or leave it as is for an auto patch version bump)
 - Set the same version in `CHANGELOG.md` and put today's date and changes
 - Run `npm run release`
+- Set the next version in `package.json`
 - Add the next block to the `CHANGELOG.md`
+- Set git tag on the released commit
 
 ### Simulate a Deployment
 
