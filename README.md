@@ -2,6 +2,8 @@
 
 <h1>rocketry</h1>
 
+⚠️ This package is deprecated. ⚠️
+
 <a href="https://www.joypixels.com/emoji/1f680">
   <img alt="rocketry" src="logo.png" width="128" />
 </a>
